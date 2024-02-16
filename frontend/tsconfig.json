@@ -1,0 +1,56 @@
+{
+  "compilerOptions": {
+    "target": "ES5",
+    "useDefineForClassFields": true,
+    "lib": [
+      "ES5",
+      "dom",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "module": "ESNext",
+    "skipLibCheck": true,
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "baseUrl": "./",
+    "paths": {
+      "@app/*": [
+        "src/app/*"
+      ],
+      "@entities/*": [
+        "src/entities/*"
+      ],
+      "@features/*": [
+        "src/features/*"
+      ],
+      "@pages/*": [
+        "src/pages/*"
+      ],
+      "@shared/*": [
+        "src/shared/*"
+      ],
+      "@widgets/*": [
+        "src/widgets/*"
+      ]
+    }
+  },
+  "include": [
+    "src",
+    "images.d.ts"
+  ],
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ]
+}
