@@ -31,5 +31,9 @@ dev_dependencies:
 
   flutter_lints: ^3.0.1
 
+
 flutter:
   uses-material-design: true
+
+  assets:
+    - core/resources/langs/

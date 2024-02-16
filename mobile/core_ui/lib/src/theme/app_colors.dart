@@ -16,7 +16,7 @@ class AppColors {
   static const Color mineShaft = Color.fromRGBO(33, 33, 33, 1);
   static const Color aztecSecondary = Color.fromRGBO(22, 34, 33, 1);
 
-  static const Color sirocco = Color.fromRGBO(104, 125, 124, 1);
+  static const Color sirocco = Color.fromRGBO(38, 131, 126, 1.0);
   static const Color siroccoSecondary = Color.fromRGBO(116, 136, 135, 1);
   static const Color tePapaGreen = Color.fromRGBO(34, 59, 57, 1);
   static const Color cuttySark = Color.fromRGBO(89, 127, 125, 1);
