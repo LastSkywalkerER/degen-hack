@@ -1,0 +1,54 @@
+{
+  "ts-node": {
+    "files": true
+  },
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "ES2021",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "noFallthroughCasesInSwitch": false,
+    "resolveJsonModule": true,
+    "paths": {
+      "degen-hack/postgresql": [
+        "libs/postgresql/src"
+      ],
+      "degen-hack/crypto": [
+        "libs/crypto/src"
+      ],
+      "degen-hack/redis": [
+        "libs/redis/src"
+      ],
+      "degen-hack/exceptions": [
+        "libs/exceptions/src"
+      ],
+      "degen-hack/typings": [
+        "typings"
+      ],
+      "degen-hack/auth": [
+        "libs/auth/src"
+      ],
+      "degen-hack/auth/*": [
+        "libs/auth/src/*"
+      ],
+      "@app/common": [
+        "libs/common/src"
+      ],
+      "@app/common/*": [
+        "libs/common/src/*"
+      ],
+      "@degen-hack/core": ["apps/degen-hack/src/core"],
+    }
+  }
+}

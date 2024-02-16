@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "declaration": false,
+    "outDir": "../../dist/apps/degen-hack"
+  },
+  "exclude": ["node_modules", "dist", "test", "**/*spec.ts"],
+  "extends": "../../tsconfig.json",
+  "include": ["src/**/*", "../../index.d.ts"],
+}
