@@ -3,7 +3,6 @@ import { jwtDecode } from "jwt-decode";
 
 import { useStore } from "@shared/services/store/store.service.ts";
 import { LoggedUser } from "@entities/Users";
-import { Users } from "@shared/api/users/Users";
 
 import { roleFeatures, UserFeatures } from "@shared/constants/roleFeatures.ts";
 
@@ -32,11 +31,11 @@ export const useUser = create<UserStore>()((set, get) => ({
   userData: null,
 
   getActiveUser: async () => {
-    const { user } = get();
+    // const { user } = get();
 
-    const userData = user && (await Users.getUser(user.userId)).data;
+    // const userData = user && (await Users.getUser(user.userId)).data;
 
-    if (!userData) return;
+    // if (!userData) return;
 
     set((state) => ({
       ...state,
@@ -50,7 +49,6 @@ export const useUser = create<UserStore>()((set, get) => ({
   },
 
   login: async () => {
-    const { setTokens } = useStore.getState();
     const { getActiveUser } = get();
 
     // if (!account?.address) return;
