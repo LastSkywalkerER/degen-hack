@@ -30,7 +30,7 @@ class AppConfig {
     required this.webSocketUrl,
   });
 
-  factory AppConfig.fromFlavor(Flavor flavor) {
+  factory AppConfig.from() {
     String sentryKey;
     String walletConnectId;
     String graphQlBaseUrl;
@@ -39,43 +39,18 @@ class AppConfig {
     String onfidoDevUrl;
     String explorerUrl;
     String webSocketUrl;
-    switch (flavor) {
-      case Flavor.prod:
-        sentryKey = ApiConstants.prodSentryKey;
-        graphQlBaseUrl = ApiConstants.graphProdUrl;
-        vitreusBaseUrlWS = ApiConstants.vitreusProdUrlWs;
-        vitreusBaseUrlHTTP = ApiConstants.vitreusProdHttpUrl;
-        onfidoDevUrl = ApiConstants.onfidoDevUrl;
-        walletConnectId = WalletConnectConstants.projectIdProd;
-        explorerUrl = ApiConstants.explorerProdUrl;
-        webSocketUrl = ApiConstants.webSocketProdUrl;
-        break;
 
-      case Flavor.stage:
-        sentryKey = ApiConstants.stageSentryKey;
-        graphQlBaseUrl = ApiConstants.graphDevUrl;
-        vitreusBaseUrlWS = ApiConstants.vitreusDevUrlWs;
-        vitreusBaseUrlHTTP = ApiConstants.vitreusDevHttpUrl;
-        onfidoDevUrl = ApiConstants.onfidoDevUrl;
-        walletConnectId = WalletConnectConstants.projectIdDev;
-        explorerUrl = ApiConstants.explorerDevUrl;
-        webSocketUrl = ApiConstants.webSocketStageUrl;
-        break;
-
-      case Flavor.dev:
-        sentryKey = ApiConstants.devSentryKey;
-        graphQlBaseUrl = ApiConstants.graphDevUrl;
-        vitreusBaseUrlWS = ApiConstants.vitreusDevUrlWs;
-        vitreusBaseUrlHTTP = ApiConstants.vitreusDevHttpUrl;
-        onfidoDevUrl = ApiConstants.onfidoDevUrl;
-        walletConnectId = WalletConnectConstants.projectIdDev;
-        explorerUrl = ApiConstants.explorerDevUrl;
-        webSocketUrl = ApiConstants.webSocketDevUrl;
-        break;
-    }
+    sentryKey = ApiConstants.prodSentryKey;
+    graphQlBaseUrl = ApiConstants.graphProdUrl;
+    vitreusBaseUrlWS = ApiConstants.vitreusProdUrlWs;
+    vitreusBaseUrlHTTP = ApiConstants.vitreusProdHttpUrl;
+    onfidoDevUrl = ApiConstants.onfidoDevUrl;
+    walletConnectId = WalletConnectConstants.projectIdProd;
+    explorerUrl = ApiConstants.explorerProdUrl;
+    webSocketUrl = ApiConstants.webSocketProdUrl;
 
     return AppConfig(
-      flavor: flavor,
+      flavor: Flavor.prod,
       sentryKey: sentryKey,
       graphQlBaseUrl: graphQlBaseUrl,
       walletConnectId: walletConnectId,

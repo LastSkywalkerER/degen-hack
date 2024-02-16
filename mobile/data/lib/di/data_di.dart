@@ -5,13 +5,11 @@ import '../errors/error_handler.dart';
 final DataDI dataDI = DataDI();
 
 class DataDI {
-  void initDependencies({
-    required Flavor flavor,
-  }) {
-    _initApi(flavor);
+  void initDependencies() {
+    _initApi();
   }
 
-  void _initApi(Flavor flavor) {
+  void _initApi() {
     appLocator.registerLazySingleton<ErrorHandler>(
       ErrorHandler.new,
     );

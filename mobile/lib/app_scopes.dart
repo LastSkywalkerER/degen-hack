@@ -13,8 +13,8 @@ class AppScopes {
     appLocator.pushNewScope(
       scopeName: _defaultScope,
       init: (_) {
-        appDI.setupPreAuth(flavor: flavor);
-        dataDI.initDependencies(flavor: flavor);
+        appDI.setupPreAuth();
+        dataDI.initDependencies();
         NavigationDI.setupDependencies();
       },
     );

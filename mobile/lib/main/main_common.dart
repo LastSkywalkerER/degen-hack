@@ -24,7 +24,7 @@ Future<void> mainCommon(Flavor flavor) async {
     (SentryFlutterOptions options) {
       options.debug = true;
       options.attachScreenshot = true;
-      options.dsn = AppConfig.fromFlavor(flavor).sentryKey;
+      options.dsn = AppConfig.from().sentryKey;
       options.maxRequestBodySize = MaxRequestBodySize.always;
       options.maxResponseBodySize = MaxResponseBodySize.always;
     },

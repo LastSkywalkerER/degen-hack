@@ -15,6 +15,7 @@ class WelcomeBloc extends Bloc<WelcomeEvent, WelcomeState> {
         super(ContentState()) {
     on<ImportAddress>(_onImportAddress);
     on<CreateNewAddress>(_onCreateNewAddress);
+    print("Hello");
   }
 
   Future<void> _onCreateNewAddress(

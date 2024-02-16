@@ -16,5 +16,7 @@ dependencies:
   navigation:
     path: ../navigation
 
+  flutter_svg: ^2.0.5
+
 flutter:
   uses-material-design: true

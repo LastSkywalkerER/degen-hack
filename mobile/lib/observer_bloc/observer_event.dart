@@ -2,14 +2,6 @@ part of 'observer_bloc.dart';
 
 abstract class ObserverEvent {}
 
-class HandleConnectionProposal implements ObserverEvent {
-  final SessionProposal sessionProposal;
+class HandleConnectionProposal implements ObserverEvent {}
 
-  HandleConnectionProposal({required this.sessionProposal});
-}
-
-class HandleSessionEvent implements ObserverEvent {
-  final SessionRequest sessionRequest;
-
-  HandleSessionEvent({required this.sessionRequest});
-}
+class HandleSessionEvent implements ObserverEvent {}

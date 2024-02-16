@@ -1,3 +1,17 @@
 {
-  "appName": "StrataFi"
+  "buttons": {
+    "importAddress": "Import existing address",
+    "createAddress": "Create new address",
+    "startComplexStrategy": "Start complex strategy",
+    "saveComplexStrategy": "Save complex strategy",
+    "closeStrategy": "Close strategy",
+    "followStrategy": "Follow strategy",
+    "saveChanges": "Save changes"
+  },
+  "navBar": {
+    "home": "Home",
+    "myStrategies": "My strategies",
+    "publicStrategies": "Public strategies",
+    "wallet": "My wallet"
+  }
 }

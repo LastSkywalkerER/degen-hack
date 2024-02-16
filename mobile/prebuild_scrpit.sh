@@ -27,7 +27,6 @@ flutter pub run easy_localization:generate --source-dir ./resources/langs/ --out
 # generate data layer files
 cd "../data" || exit
 flutter pub run build_runner build --delete-conflicting-outputs
-dart run polkadart_cli:generate -v
 
 # generate auto route files
 cd "../navigation" || exit

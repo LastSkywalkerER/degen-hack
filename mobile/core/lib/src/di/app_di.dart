@@ -6,11 +6,9 @@ final AppDI appDI = AppDI();
 final GetIt appLocator = GetIt.instance;
 
 class AppDI {
-  void setupPreAuth({
-    required Flavor flavor,
-  }) {
+  void setupPreAuth() {
     appLocator.registerSingleton<AppConfig>(
-      AppConfig.fromFlavor(flavor),
+      AppConfig.from(),
     );
   }
 

@@ -17,9 +17,6 @@ class MobileApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routerDelegate: appRouter.delegate(),
       routeInformationParser: appRouter.defaultRouteParser(),
-      localizationsDelegates: context.localizationDelegates,
-      supportedLocales: context.supportedLocales,
-      locale: context.locale,
       builder: (BuildContext context, Widget? child) {
         return BlocProvider<ObserverBloc>(
           create: (_) {
