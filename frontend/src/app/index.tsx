@@ -13,7 +13,7 @@ import { Sepolia } from "@thirdweb-dev/chains";
 import { withHelmet } from "@shared/hocs";
 import { useUser } from "@shared/services/user/user.service";
 import { usePolling } from "@shared/services/polling/polling.service.ts";
-import { useWallet } from "@shared/services/wallet/wallet.service.ts";
+import { useWeb3 } from "@shared/services/web3/web3.service.ts";
 import { env } from "@shared/config/environment.ts";
 import { routes } from "../shared/routes";
 import { mainHelmet } from "../shared/helmets/main";
@@ -34,7 +34,7 @@ const InitialWrapper: FC<FCWithChildren> = ({ children }) => {
   const wallet = useThirdwebWallet();
   const isMismatch = useNetworkMismatch();
   const switchChain = useSwitchChain();
-  const { init: initWallet } = useWallet();
+  const { init: initWallet } = useWeb3();
   const { init } = usePolling();
 
   useEffect(() => {

@@ -6,3 +6,6 @@ export const mainHelmet: HelmetOptions = {
 export const loginHelmet: HelmetOptions = {
   title: "Degen: Login",
 };
+export const buildStrategyHelmet: HelmetOptions = {
+  title: "Degen: Build",
+};

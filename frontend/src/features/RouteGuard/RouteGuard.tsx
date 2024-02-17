@@ -6,7 +6,7 @@ import { useUser } from "@shared/services/user/user.service.ts";
 export const RouteGuard: FC<{
   children: ReactNode | ReactNode[];
   loginRoute?: RoutesNames;
-}> = ({ loginRoute = RoutesNames.LoginPage, children }) => {
+}> = ({ loginRoute = RoutesNames.Home, children }) => {
   const { user } = useUser();
 
   if (!user) return <Navigate to={loginRoute} />;

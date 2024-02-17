@@ -1,10 +1,11 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate, Outlet } from "react-router-dom";
 import { lazy } from "react";
 
 import { RouteGuard } from "@features/RouteGuard/RouteGuard.tsx";
 import { RoutesNames } from "./constants/routes-names";
 
 const Home = lazy(() => import("../pages/Home/Home"));
+const BuildStrategy = lazy(() => import("../pages/BuildStrategy/BuildStrategy"));
 const Layout = lazy(() => import("./layout/layout"));
 
 export const routes = createBrowserRouter([
@@ -20,9 +21,19 @@ export const routes = createBrowserRouter([
         path: RoutesNames.App,
         element: (
           <RouteGuard>
-            <div>App</div>
+            <Outlet />
           </RouteGuard>
         ),
+        children: [
+          {
+            path: RoutesNames.App + RoutesNames.BuildStrategy,
+            element: <BuildStrategy />,
+          },
+          {
+            path: RoutesNames.App,
+            element: <Navigate to={RoutesNames.App + RoutesNames.BuildStrategy} />,
+          },
+        ],
       },
     ],
   },
