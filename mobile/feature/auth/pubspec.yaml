@@ -22,3 +22,6 @@ dependencies:
     path: ../../navigation
   mobile_app:
     path: ../..
+
+  flutter_svg: ^2.0.5
+  google_fonts: ^6.1.0

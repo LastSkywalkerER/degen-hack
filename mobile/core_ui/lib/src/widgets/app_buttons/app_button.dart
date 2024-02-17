@@ -2,6 +2,12 @@ part of widgets;
 
 enum AppButtonStyle { primary, elevated, secondary, text, link }
 
+final ButtonStyle buttonPrimary = ElevatedButton.styleFrom(
+    minimumSize: const Size(330, 50),
+    primary: Colors.orange,
+    elevation: 0,
+    shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(50))));
+
 class AppButton extends StatelessWidget {
   final AppButtonStyle style;
   final String? title;
@@ -57,11 +63,10 @@ class AppButton extends StatelessWidget {
     final double height = buttonHeight ?? AppDimensions.size50;
     final double? width = buttonWidth;
     final MainAxisSize mainAxisSize = this.mainAxisSize ?? MainAxisSize.max;
-    final AppColorsTheme appColors = AppColorsTheme.of(context);
     final ButtonStyle buttonStyle = style == AppButtonStyle.elevated
         ? ElevatedButton.styleFrom(
-            foregroundColor: foregroundColor ?? appColors.black,
-            backgroundColor: backgroundColor ?? appColors.green,
+            foregroundColor: foregroundColor ?? AppColors.black,
+            backgroundColor: backgroundColor ?? AppColors.mineralGreen,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(
                 AppDimensions.radius8,
@@ -71,9 +76,9 @@ class AppButton extends StatelessWidget {
         : style == AppButtonStyle.secondary
             ? OutlinedButton.styleFrom(
                 side: BorderSide(
-                  color: borderColor ?? appColors.green,
+                  color: borderColor ?? AppColors.mineralGreen,
                 ),
-                foregroundColor: foregroundColor ?? appColors.green,
+                foregroundColor: foregroundColor ?? AppColors.mineralGreen,
                 backgroundColor: backgroundColor,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(
@@ -84,7 +89,7 @@ class AppButton extends StatelessWidget {
             : TextButton.styleFrom(
                 shape: shape,
                 backgroundColor: backgroundColor,
-                foregroundColor: foregroundColor ?? appColors.green,
+                foregroundColor: foregroundColor ?? AppColors.mineralGreen,
                 padding: padding,
               );
 
@@ -108,7 +113,7 @@ class AppButton extends StatelessWidget {
           Text(title,
               style: AppFonts.regular16dmsSans.copyWith(
                 color: foregroundColor ??
-                    (style == AppButtonStyle.primary ? appColors.black : appColors.green),
+                    (style == AppButtonStyle.primary ? AppColors.black : AppColors.mineralGreen),
               )),
       ],
     );
@@ -123,12 +128,12 @@ class AppButton extends StatelessWidget {
             gradient: LinearGradient(
               colors: isDisabled
                   ? <Color>[
-                      appColors.green.withOpacity(.5),
-                      appColors.lightBlue.withOpacity(.5),
+                      AppColors.mineralGreen.withOpacity(.5),
+                      AppColors.brightTurquoise.withOpacity(.5),
                     ]
                   : <Color>[
-                      appColors.green,
-                      appColors.lightBlue,
+                      AppColors.mineralGreen,
+                      AppColors.brightTurquoise,
                     ],
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,

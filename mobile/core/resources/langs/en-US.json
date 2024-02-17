@@ -6,12 +6,21 @@
     "saveComplexStrategy": "Save complex strategy",
     "closeStrategy": "Close strategy",
     "followStrategy": "Follow strategy",
-    "saveChanges": "Save changes"
+    "saveChanges": "Save changes",
+    "next": "Next"
   },
   "navBar": {
     "home": "Home",
     "myStrategies": "My strategies",
     "publicStrategies": "Public strategies",
     "wallet": "My wallet"
+  },
+  "onboardingScreen": {
+    "description": "Developed by Blockchain team",
+    "header": "EasyDeFi"
+  },
+  "importAddress": {
+    "header": "Import address",
+    "description": "Import from seed phrase"
   }
 }

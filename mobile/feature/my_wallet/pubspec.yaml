@@ -1,0 +1,24 @@
+name: my_wallet
+publish_to: none
+
+include: ../../pubspec.yaml
+
+environment:
+  sdk: '>=3.0.1 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  data:
+    path: ../../data
+  domain:
+    path: ../../domain
+  core_ui:
+    path: ../../core_ui
+  core:
+    path: ../../core
+  navigation:
+    path: ../../navigation
+  mobile_app:
+    path: ../..

@@ -17,7 +17,7 @@ class LinkButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       style: TextButton.styleFrom(
-        foregroundColor: foregroundColor ?? AppColorsTheme.of(context).green,
+        foregroundColor: foregroundColor ?? AppColors.mediumJungleGreen,
         backgroundColor: Colors.transparent,
       ),
       onPressed: onPressed,

@@ -22,13 +22,14 @@ class WelcomeBloc extends Bloc<WelcomeEvent, WelcomeState> {
     CreateNewAddress event,
     Emitter<WelcomeState> emit,
   ) async {
-    //unawaited(_appRouter.push(const CreateAddressRoute()));
+    print("To Home");
+    unawaited(_appRouter.push(const HomeRoute()));
   }
 
   Future<void> _onImportAddress(
     ImportAddress event,
     Emitter<WelcomeState> emit,
   ) async {
-    //unawaited(_appRouter.push(const ImportAddressRoute()));
+    unawaited(_appRouter.push(const ImportAddressRoute()));
   }
 }

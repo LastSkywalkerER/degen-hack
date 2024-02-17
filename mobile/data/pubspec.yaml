@@ -19,6 +19,9 @@ dependencies:
   dio: ^5.3.3
   build_runner: ^2.4.5
   json_serializable: ^6.7.1
+  ed25519_hd_key: ^2.2.0
+  hex: ^0.2.0
+  web3dart: ^2.6.1
   freezed: ^2.4.0
   sentry_flutter: 7.9.0
 

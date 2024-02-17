@@ -37,3 +37,5 @@ flutter:
 
   assets:
     - core/resources/langs/
+    - core_ui/resources/images/
+    - core_ui/resources/images/login/

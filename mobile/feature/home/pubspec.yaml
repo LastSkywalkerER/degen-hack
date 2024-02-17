@@ -1,0 +1,35 @@
+name: home
+publish_to: none
+
+include: ../../pubspec.yaml
+
+environment:
+  sdk: '>=3.0.1 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  privacy_screen: ^0.0.6
+  titled_navigation_bar: ^5.0.0-nullsafety.0
+
+  core:
+    path: ../../core
+  data:
+    path: ../../data
+  domain:
+    path: ../../domain
+  core_ui:
+    path: ../../core_ui
+  navigation:
+    path: ../../navigation
+  home_app_bar:
+    path: ../home_app_bar
+  info:
+    path: ../info
+  my_strategies:
+    path: ../my_strategies
+  my_wallet:
+    path: ../my_wallet
+  public_strategies:
+    path: ../public_strategies

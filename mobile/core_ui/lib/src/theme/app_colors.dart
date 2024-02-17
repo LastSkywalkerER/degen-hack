@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+part of core_ui;
 
 class AppColors {
   static const Color transparent = Color.fromRGBO(0, 0, 0, 0);
@@ -34,4 +34,8 @@ class AppColors {
   static const Color flushMahogany = Color.fromRGBO(200, 52, 61, 1);
   static const Color cocoaBrown = Color.fromRGBO(47, 31, 32, 1);
   static const Color manz = Color.fromRGBO(239, 241, 109, 1);
+
+  static const Color LoginBackground = Color(0xFFD2FFF4);
+  static const Color LoginPrimary = Color(0xFF2D5D70);
+  static const Color LoginSecondary = Color(0xFF265DAB);
 }
