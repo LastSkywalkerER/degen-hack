@@ -21,4 +21,12 @@ export class BlockchainEthDomain {
   }: VerifyMessageParameters) {
     return this.blockchainEthSdk.verifyMessage({ address, message, signature });
   }
+
+  public async getBlockchainData(address: string) {
+    return this.blockchainEthSdk.getBlockchainData(address);
+  }
+
+  public async getTokensInfo() {
+    return this.blockchainEthSdk.getTokensInfo();
+  }
 }

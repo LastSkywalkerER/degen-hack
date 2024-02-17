@@ -18,7 +18,15 @@ export class UserService {
       throw new NotFoundException('user not found');
     }
 
-    return user;
+    const data = await this.blockchainEthDomain.getBlockchainData(
+      user.walletAddress,
+    );
+
+    return {
+      ...user,
+      healthFactor: data.healthFactor,
+      netWorth: data.netWorth,
+    };
   }
 
   public async getUserByAdress(address: string) {

@@ -11,6 +11,7 @@ import { WinstonConfigService } from './config/winston';
 import { AuthRefreshTokenModule } from './modules/auth-refresh-token';
 import { BlockchainEthModule } from './modules/blockchain-eth';
 import { CryptoAuthModule } from './modules/crypto-auth';
+import { StrategyModule } from './modules/strategy/strategy.module';
 import { UserModule } from './modules/user';
 
 @Module({
@@ -30,6 +31,7 @@ import { UserModule } from './modules/user';
     CryptoAuthModule,
     BlockchainEthModule,
     AuthRefreshTokenModule,
+    StrategyModule,
   ],
   controllers: [],
   providers: [],

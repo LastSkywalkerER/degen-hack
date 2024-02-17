@@ -13,4 +13,16 @@ export const apiConfig = {
   user: {
     getUser: `${basePath}/user`,
   },
+  token: {
+    getTokensInfo: `${basePath}/tokens-info`,
+  },
+  strategy: {
+    getAllSteps: `${basePath}/strategy/steps/public`,
+    getStepById: `${basePath}/strategy/step/:id`,
+    addPublicStrategy: `${basePath}/strategy/public`,
+    addUserStrategy: `${basePath}/strategy/user`,
+    getCurrentUserStrategies: `${basePath}/strategy/user/all`,
+    getPublicStrategies: `${basePath}/strategy/public/all`,
+    getStrategyById: `${basePath}/strategy/:id`,
+  },
 };
