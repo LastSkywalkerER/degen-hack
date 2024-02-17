@@ -1,4 +1,5 @@
 import 'package:core/core.dart';
+import 'package:domain/domain.dart';
 import 'package:flutter/material.dart';
 import 'package:navigation/app_router/app_router.dart';
 
@@ -14,6 +15,8 @@ class WelcomeScreen extends StatelessWidget {
       create: (_) {
         return WelcomeBloc(
           appRouter: appLocator<AppRouter>(),
+          createWalletUseCase: appLocator<CreateWalletUseCase>(),
+          generateNewMnemonicUseCase: appLocator<GenerateNewMnemonicUseCase>(),
         );
       },
       child: const WelcomeForm(),

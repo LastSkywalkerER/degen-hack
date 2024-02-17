@@ -21,3 +21,5 @@ dependencies:
     path: ../../core
   navigation:
     path: ../../navigation
+
+  google_fonts: ^6.1.0

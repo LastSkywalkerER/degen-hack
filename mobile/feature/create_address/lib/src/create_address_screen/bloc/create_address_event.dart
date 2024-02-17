@@ -1,7 +1,7 @@
 part of 'create_address_bloc.dart';
 
-abstract class WelcomeEvent {}
+abstract class CreateAddressEvent {}
 
-class CreateNewAddress implements WelcomeEvent {}
+class NextClick implements CreateAddressEvent {}
 
-class ImportAddress implements WelcomeEvent {}
+class ImportAddress implements CreateAddressEvent {}

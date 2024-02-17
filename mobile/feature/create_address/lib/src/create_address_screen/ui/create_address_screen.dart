@@ -10,13 +10,13 @@ class CreateAddressScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<WelcomeBloc>(
+    return BlocProvider<CreateAddressBloc>(
       create: (_) {
-        return WelcomeBloc(
+        return CreateAddressBloc(
           appRouter: appLocator<AppRouter>(),
         );
       },
-      child: const WelcomeForm(),
+      child: const CreateAddressForm(),
     );
   }
 }

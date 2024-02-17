@@ -54,7 +54,7 @@ class WelcomeForm extends StatelessWidget {
         Row(
           children: <Widget>[
             Text(
-              "Blockchain hackaton",
+              "DEGEN HACK 2024",
               style: GoogleFonts.poppins(
                 fontSize: 20,
                 color: Colors.white,
@@ -84,12 +84,19 @@ class WelcomeForm extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          //SvgPicture.asset(logo),
+          const SizedBox(
+            height: 18,
+          ),
+          IconButton(
+            icon: Image.asset(AppImages.logo),
+            iconSize: 100,
+            onPressed: () {},
+          ),
           const SizedBox(
             height: 18,
           ),
           Text(
-            'Name | Logo',
+            'Strategic Finance',
             style: GoogleFonts.poppins(
               fontSize: 22,
               color: Colors.white,
@@ -100,7 +107,7 @@ class WelcomeForm extends StatelessWidget {
             height: 18,
           ),
           Text(
-            'Bank solution.\nPayouts.\n\nJoin For Free.',
+            'With minds as bright as our spirits, we believe in turning wild ideas into reality.',
             style: GoogleFonts.poppins(
               height: 1.6,
               fontSize: 12,
@@ -126,7 +133,7 @@ class WelcomeForm extends StatelessWidget {
             context.read<WelcomeBloc>().add(CreateNewAddress());
           },
           child: Text(
-            LocaleKeys.buttons_importAddress.watchTr(context),
+            LocaleKeys.buttons_createAddress.watchTr(context),
             style: GoogleFonts.poppins(
               fontSize: 15,
               height: 1.6,
@@ -138,12 +145,17 @@ class WelcomeForm extends StatelessWidget {
         const SizedBox(
           height: 20,
         ),
-        Text(
-          LocaleKeys.buttons_createAddress.watchTr(context),
-          style: GoogleFonts.poppins(
-            fontSize: 12,
-            color: const Color(0xffffffff),
-            fontWeight: FontWeight.w500,
+        GestureDetector(
+          onTap: () {
+            context.read<WelcomeBloc>().add(ImportAddress());
+          },
+          child: Text(
+            LocaleKeys.buttons_importAddress.watchTr(context),
+            style: GoogleFonts.poppins(
+              fontSize: 12,
+              color: const Color(0xffffffff),
+              fontWeight: FontWeight.w500,
+            ),
           ),
         )
       ],

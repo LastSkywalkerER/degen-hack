@@ -1,8 +1,5 @@
-import 'package:core/core.dart';
-import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
-
-import '../../bloc/import_address_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ImportAddressForm extends StatefulWidget {
   const ImportAddressForm({
@@ -20,105 +17,87 @@ class _ImportAddressFormState extends State<ImportAddressForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PageAppBar(
-        isNeedDefaultLeading: true,
-        title: LocaleKeys.importAddress_header.watchTr(context).toUpperCase(),
+      backgroundColor: Color(0xFF171822),
+      appBar: AppBar(
+        leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.pop(context);
+            }),
+        backgroundColor: Color(0xFF171822),
+        title: const Text('Import existing address'),
+        elevation: 0,
       ),
-      backgroundColor: AppColors.white,
-      body: GestureDetector(
-        behavior: HitTestBehavior.translucent,
-        onTap: () {
-          FocusScope.of(context).unfocus();
-        },
-        child: LayoutBuilder(
-          builder: (BuildContext context, BoxConstraints constraints) {
-            return SingleChildScrollView(
-              child: ConstrainedBox(
-                constraints: BoxConstraints(
-                  minWidth: constraints.maxWidth,
-                  minHeight: constraints.maxHeight,
-                ),
-                child: IntrinsicHeight(
-                  child: BlocBuilder<ImportAddressBloc, ImportAddressState>(
-                    builder: (BuildContext context, ImportAddressState state) {
-                      if (state is ContentState) {
-                        return Center(
-                          child: Padding(
-                            padding:
-                                const EdgeInsets.only(bottom: 100), // Верхний отступ перед блоком
-                            child: Container(
-                              padding: const EdgeInsets.all(16), // Отступ внутри контейнера
-                              margin: const EdgeInsets.all(5),
-                              decoration: BoxDecoration(
-                                border:
-                                    Border.all(color: Colors.orange, width: 2), // Оранжевая рамка
-                                borderRadius: BorderRadius.circular(12), // Скругление углов
-                              ),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: <Widget>[
-                                  Text(
-                                    "Input your seed phrase",
-                                    style: AppFonts.bold25dmsSans.copyWith(
-                                      color: Colors.blueGrey,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 30),
-                                  Padding(
-                                    padding:
-                                        const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-                                    child: Theme(
-                                      data: Theme.of(context).copyWith(
-                                        primaryColor:
-                                            Colors.blueGrey, // Цвет курсора и границы при фокусе
-                                        inputDecorationTheme: InputDecorationTheme(
-                                          focusedBorder: UnderlineInputBorder(
-                                            // Граница при фокусе
-                                            borderSide: BorderSide(color: Colors.blueGrey),
-                                          ),
-                                          labelStyle: TextStyle(
-                                            color:
-                                                Colors.blueGrey, // Цвет текста подсказки при фокусе
-                                          ),
-                                        ),
-                                      ),
-                                      child: TextFormField(
-                                        decoration: InputDecoration(
-                                          border: UnderlineInputBorder(),
-                                          labelText: 'Enter your seed phrase',
-                                          // Для изменения цвета текста подсказки при ненаведении, если нужно
-                                          // Это будет работать только для веба или платформ, поддерживающих наведение
-                                          hoverColor: Colors.blueGrey,
-                                        ),
-                                        cursorColor: Colors.blueGrey, // Цвет курсора
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(height: 50),
-                                  SizedBox(
-                                    width: double.infinity,
-                                    child: ElevatedButton(
-                                      style: buttonPrimary,
-                                      onPressed: () {},
-                                      child: Text(
-                                        "Input seed phrase".toUpperCase(),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        );
-                      } else {
-                        return const SizedBox.shrink();
-                      }
-                    },
+      body: Center(
+        child: Padding(
+          padding: EdgeInsets.only(bottom: 100.0),
+          child: Card(
+            color: Color(0xFF212330),
+            margin: EdgeInsets.all(20.0),
+            child: Padding(
+              padding: EdgeInsets.all(20.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    'Please enter your seed phrase',
+                    style: GoogleFonts.poppins(
+                      fontSize: 18,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
-                ),
+                  SizedBox(height: 20.0),
+                  TextField(
+                    controller: TextEditingController(
+                        text: "tattoo drink manual library brick kick leader possible head"),
+                    readOnly: true,
+                    cursorColor: Colors.white,
+                    style: TextStyle(color: Colors.white),
+                    decoration: InputDecoration(
+                      labelText: 'Seed Phrase',
+                      labelStyle: TextStyle(color: Colors.white),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        // Обводка при фокусе
+                        borderSide: BorderSide(color: Colors.white),
+                      ),
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 20.0),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      MaterialButton(
+                        elevation: 0,
+                        color: const Color(0xFFFFAC30),
+                        height: 50,
+                        minWidth: 300,
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                        onPressed: () {
+                          //context.read<WelcomeBloc>().add(CreateNewAddress());
+                        },
+                        child: Text(
+                          "Next",
+                          style: GoogleFonts.poppins(
+                            fontSize: 15,
+                            height: 1.6,
+                            color: const Color(0xff212330),
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
-            );
-          },
+            ),
+          ),
         ),
       ),
     );
