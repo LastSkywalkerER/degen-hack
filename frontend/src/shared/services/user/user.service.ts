@@ -5,7 +5,7 @@ import { filter } from "rxjs";
 import { useStore } from "@shared/services/store/store.service.ts";
 import { LoggedUser, UserData } from "@entities/Users";
 import { Users } from "@shared/api/Users/Users.ts";
-import { useWallet } from "@shared/services/wallet/wallet.service.ts";
+import { useWeb3 } from "@shared/services/web3/web3.service.ts";
 import { Auth } from "@shared/api/auth/Auth.ts";
 
 type UserStore = {
@@ -47,7 +47,7 @@ export const useUser = create<UserStore>()((set, get) => ({
 
   login: async () => {
     const { getActiveUser } = get();
-    const { signer } = useWallet.getState();
+    const { signer } = useWeb3.getState();
     const { setTokens } = useStore.getState();
 
     signer.pipe(filter((signer) => !!signer)).subscribe(async (signer) => {

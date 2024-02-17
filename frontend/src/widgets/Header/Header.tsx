@@ -13,12 +13,17 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
-import { useNavigate } from "react-router-dom";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { ConnectWallet } from "@thirdweb-dev/react";
 import { useUser } from "@shared/services/user/user.service.ts";
 import { RoutesNames } from "@shared/constants/routes-names.ts";
 
-const pages = ["Products", "Pricing", "Blog"];
+const pages = [
+  {
+    name: "Build strategy",
+    route: RoutesNames.App + RoutesNames.BuildStrategy,
+  },
+];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 export const Header: FC = () => {
@@ -45,7 +50,7 @@ export const Header: FC = () => {
   const handleLogin = useCallback(async () => {
     await login();
 
-    navigate(RoutesNames.Home);
+    navigate(RoutesNames.App);
   }, []);
 
   return (
@@ -101,10 +106,12 @@ export const Header: FC = () => {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
+              {pages.map(({ name, route }) => (
+                <RouterLink key={name} to={route} style={{ textDecoration: "none" }}>
+                  <MenuItem key={name} onClick={handleCloseNavMenu}>
+                    <Typography textAlign="center">{name}</Typography>
+                  </MenuItem>
+                </RouterLink>
               ))}
             </Menu>
           </Box>
@@ -128,14 +135,19 @@ export const Header: FC = () => {
             LOGO
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                {page}
-              </Button>
+            {pages.map(({ name, route }) => (
+              <RouterLink key={name} to={route} style={{ textDecoration: "none" }}>
+                <Button
+                  onClick={handleCloseNavMenu}
+                  sx={{
+                    my: 2,
+                    color: "white",
+                    display: "block",
+                  }}
+                >
+                  {name}
+                </Button>
+              </RouterLink>
             ))}
           </Box>
 
