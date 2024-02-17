@@ -1,11 +1,22 @@
 import { loadFixture, ethers, expect, upgrades, anyValue } from "./setup";
 import { Multicall3, } from "../typechain-types";
-import usdcJson from "../UsdcLodestar.json";
 
 // constants
 const Abi = [
-    "function mint(uint mintAmount) external returns (uint)",
-    "function borrow(uint borrowAmount) external returns (uint)",
+    `function supply(
+        address asset,
+        uint256 amount,
+        address onBehalfOf,
+        uint16 referralCode
+      ) public`,
+
+    `function borrow(
+        address asset,
+        uint256 amount,
+        uint256 interestRateMode,
+        uint16 referralCode,
+        address onBehalfOf
+      ) public`,
 ];
 // Tests
 describe("Multicall", function () {
@@ -31,31 +42,25 @@ describe("Multicall", function () {
 
     describe("aggregate", function () {
         it("Should aggregate", async function () {
-            const { multicall } = await loadFixture(deployFixture);
-
-            const signer = await ethers.getImpersonatedSigner("0xb32754fb72f300fc9bba952947e381a3f9121039");
-
-            const USDC = await ethers.getContractAt(usdcJson, "0x4C9aAed3b8c443b4b634D1A189a5e25C604768dE");
-
-            await USDC.connect(signer).approve(USDC.address, 2);
+            const { owner, multicall } = await loadFixture(deployFixture);
 
             const iface = new ethers.utils.Interface(Abi);
-            const encodedSupplyData = iface.encodeFunctionData('mint', [1]);
-            const encodedBorrowData = iface.encodeFunctionData('borrow', [1]);
+            const encodedSupplyData = iface.encodeFunctionData('supply', ["", 1]);
+            const encodedBorrowData = iface.encodeFunctionData('borrow', ["0x94a9D9AC8a22534E3FaCa9F4e7F2E2cf85d5E4C8", 1, 1]);
 
             const supply: Multicall3.CallStruct =
             {
-                target: "0x4C9aAed3b8c443b4b634D1A189a5e25C604768dE",
+                target: "0x6Ae43d3271ff6888e7Fc43Fd7321a503ff738951",
                 callData: encodedSupplyData
             };
 
             const borrow: Multicall3.CallStruct =
             {
-                target: "0x9365181A7df82a1cC578eAE443EFd89f00dbb643",
+                target: "0x6Ae43d3271ff6888e7Fc43Fd7321a503ff738951",
                 callData: encodedBorrowData
             };
 
-            const tx = await multicall.connect(signer).aggregate([supply, borrow]);
+            const tx = await multicall.connect(owner).aggregate([supply, borrow]);
 
             console.log(tx);
         });
