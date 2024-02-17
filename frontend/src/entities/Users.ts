@@ -1,13 +1,11 @@
-export enum Roles {
-  User = "user",
-  Admin = "admin",
+export interface UserData {
+  id: number;
+  uuid: string;
+  address: string;
 }
 
 export interface LoggedUser {
-  address: string;
-  clientId: string;
-  role: Roles;
-  userId: string;
   exp: number;
   iat: number;
+  userUuid: "633d412c-45ba-4158-a91c-a6d389023075";
 }
