@@ -4,13 +4,13 @@ import { Contract, Signer, utils } from "ethers";
 import { BehaviorSubject, filter } from "rxjs";
 import { Multicall } from "@shared/helpers/Multicall/Multicall.ts";
 import { ultraAbi } from "@shared/services/web3/ultraAbi.ts";
-import { MultiInputProps } from "@pages/BuildStrategy/BuildStrategy.tsx";
+import { UIArg } from "@entities/index.ts";
 
 export interface AggregateArgs {
   to: string;
   value?: number;
   func: string;
-  args: MultiInputProps[];
+  args: UIArg[];
 }
 
 export interface Web3Store {

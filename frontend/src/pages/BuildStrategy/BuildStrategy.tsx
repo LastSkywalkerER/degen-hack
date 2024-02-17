@@ -1,111 +1,132 @@
-import { FC, SyntheticEvent, useState } from "react";
+import { FC } from "react";
 
 import Container from "@mui/material/Container";
-import { Card, TextField } from "@mui/material";
-import { Controller, useForm } from "react-hook-form";
-import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import { TextField } from "@mui/material";
 import { buildStrategyHelmet } from "@shared/helmets/main.ts";
 import { withHelmet } from "@shared/hocs";
-import { AggregateArgs, useWeb3 } from "@shared/services/web3/web3.service.ts";
+import { UIStep } from "@entities/index.ts";
+import { StepCard } from "@widgets/StepCard/StepCard.tsx";
+import { useStrategy } from "@shared/services/strategy/strategy.service.ts";
+import { useWeb3 } from "@shared/services/web3/web3.service.ts";
 
-export interface MultiInputProps {
-  name: string;
-  id: string;
-  value: string;
-}
-
-const MultiInput: FC<{
-  inputs: MultiInputProps[];
-
-  value?: MultiInputProps[];
-  onChange: (args: MultiInputProps[]) => void;
-}> = ({ value, inputs, onChange }) => {
-  const handleChangeSingleInput =
-    (id: string) => (e: SyntheticEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-      const newValue = inputs.map((oldValue, index) => {
-        if (oldValue.id !== id) return value ? value[index] : oldValue;
-
-        return {
-          ...(value ? value[index] : oldValue),
-          value: e.currentTarget.value,
-        };
-      });
-
-      onChange(newValue);
-    };
-
-  return inputs.map(({ name, id }) => (
-    <TextField
-      key={id}
-      label={name}
-      variant="outlined"
-      value={value?.find((value) => value.id === id)?.value}
-      onChange={handleChangeSingleInput(id)}
-    />
-  ));
-};
-
-const BuildStrategy: FC = () => {
-  const { handleSubmit, register, control } = useForm<AggregateArgs>();
-  const { tryAggregate } = useWeb3();
-  const [inputs, setInputs] = useState<MultiInputProps[]>([
-    {
-      id: "0",
-      name: "0",
-      value: "",
-    },
-  ]);
-
-  const onSubmit = (data: AggregateArgs) => {
-    console.log({ formData: [data] });
-    tryAggregate([data]);
-  };
-
-  const genInput = (name: keyof AggregateArgs) => (
-    <TextField label={name} variant="outlined" {...register(name)} />
-  );
-
-  const addInput = () => {
-    setInputs((state) => [
-      ...state,
+const mockSteps: UIStep[] = [
+  {
+    args: [
+      { id: "0", name: "address", value: "" },
       {
-        id: String(state.length),
-        name: String(state.length),
+        id: "1",
+        name: "address",
         value: "",
       },
-    ]);
+      { id: "2", name: "uint256", value: "" },
+    ],
+    func: "transferFrom(address,address,uint256)",
+    icon: "https://cdn.icon-icons.com/icons2/4161/PNG/512/bag_shopping_client_help_business_support_customer_icon_261688.png",
+    address: "",
+    id: 0,
+    isPublic: false,
+    serialNumber: "0",
+    title: "transferFrom",
+  },
+  {
+    args: [
+      { id: "0", name: "address", value: "" },
+      {
+        id: "1",
+        name: "address",
+        value: "",
+      },
+      { id: "2", name: "uint256", value: "" },
+    ],
+    func: "transferFrom(address,address,uint256)",
+    icon: "https://cdn.icon-icons.com/icons2/4161/PNG/512/bag_shopping_client_help_business_support_customer_icon_261688.png",
+    address: "",
+    id: 0,
+    isPublic: false,
+    serialNumber: "1",
+    title: "transferFrom",
+  },
+  {
+    args: [
+      { id: "0", name: "address", value: "" },
+      {
+        id: "1",
+        name: "address",
+        value: "",
+      },
+      { id: "2", name: "uint256", value: "" },
+    ],
+    func: "transferFrom(address,address,uint256)",
+    icon: "https://cdn.icon-icons.com/icons2/4161/PNG/512/bag_shopping_client_help_business_support_customer_icon_261688.png",
+    address: "",
+    id: 0,
+    isPublic: false,
+    serialNumber: "2",
+    title: "transferFrom",
+  },
+];
+
+const BuildStrategy: FC = () => {
+  const { steps, title, setTitle } = useStrategy();
+  const { tryAggregate } = useWeb3();
+
+  const handleStart = () => {
+    tryAggregate(
+      steps.map(({ args, func, address }) => ({
+        args,
+        func,
+        // value,
+        to: address,
+      })),
+    );
   };
 
   return (
     <Container
       sx={{
         display: "flex",
+        gap: 5,
+        height: "100%",
         flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
+        padding: 8,
       }}
     >
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Card sx={{ padding: 2, display: "flex", flexDirection: "column", gap: 2 }}>
-          {genInput("to")}
-          {genInput("value")}
-          {genInput("func")}
-          <Controller
-            render={({ field }) => <MultiInput inputs={inputs} {...field} />}
-            name={"args"}
-            control={control}
-          />
-          <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-            <Button variant="outlined" onClick={addInput}>
-              add
-            </Button>
-            <Button variant="contained" type={"submit"}>
-              Send
-            </Button>
-          </Box>
-        </Card>
-      </form>
+      <Box
+        sx={{
+          gap: 5,
+          display: "flex",
+          flexWrap: "wrap",
+          height: "100%",
+        }}
+      >
+        {mockSteps.map((props) => (
+          <StepCard key={props.id} {...props} />
+        ))}
+      </Box>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: 2,
+        }}
+      >
+        <Button variant={"contained"} onClick={handleStart}>
+          Start Complex Strategy
+        </Button>
+        <Button variant={"outlined"}>Public Complex Strategy</Button>
+        <TextField
+          label={"Strategy name"}
+          value={title}
+          onChange={(e) => setTitle(e.currentTarget.value)}
+        />
+        <Typography>
+          {steps.length} in new strategy {title}
+        </Typography>
+      </Box>
     </Container>
   );
 };
