@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-import { Contract, Signer } from "ethers";
+import { Contract, Signer, utils } from "ethers";
 import { BehaviorSubject, filter } from "rxjs";
 import { Multicall } from "@shared/helpers/Multicall/Multicall.ts";
 import { ultraAbi } from "@shared/services/web3/ultraAbi.ts";
@@ -9,8 +9,8 @@ import { MultiInputProps } from "@pages/BuildStrategy/BuildStrategy.tsx";
 export interface AggregateArgs {
   to: string;
   value?: number;
-  func?: string;
-  args?: MultiInputProps[];
+  func: string;
+  args: MultiInputProps[];
 }
 
 export interface Web3Store {
@@ -40,43 +40,42 @@ export const useWeb3 = create<Web3Store>()((_, get) => ({
       const multicall = new Multicall(currentSigner);
       console.log("tryAggregate", { multicall });
 
+      // return await multicall.test();
+
       const reciept = await multicall.tryAggregate(
         await Promise.all(
           args.map(async ({ args, to, value, func }) => {
             console.log({ args, to, value, func });
-            if (func && args) {
-              const contract = new Contract(to, ultraAbi, currentSigner);
-              console.log({ contract });
 
-              const sortedArgs = args
-                .sort((a, b) => {
-                  if (+a.id > +b.id) return 1;
-                  if (+a.id < +b.id) return -1;
-                  return 0;
-                })
-                .map(({ value }) => value);
+            const contract = new Contract(to, ultraAbi, currentSigner);
+            const iface = new utils.Interface(ultraAbi);
+            console.log({ iface });
 
-              console.log({
-                args,
-                to,
-                value,
-                func,
-                target: to,
-                callData: await contract[func](sortedArgs).populateTransaction(),
-              });
+            const sortedArgs = args
+              .sort((a, b) => {
+                if (+a.id > +b.id) return 1;
+                if (+a.id < +b.id) return -1;
+                return 0;
+              })
+              .map(({ value }) => value);
 
-              return {
-                target: to,
-                callData: await contract[func](sortedArgs).populateTransaction(),
-              };
-            }
+            const data = await iface.encodeFunctionData(func, sortedArgs);
+
+            console.log({
+              sortedArgs,
+              func,
+              target: to,
+              callData: data,
+              contractData: await contract.populateTransaction[func](...sortedArgs),
+            });
 
             return {
               target: to,
-              callData: await currentSigner.populateTransaction({ to, value }),
+              callData: data,
             };
           }),
         ),
+        args.reduce((acc, { value }) => +acc + +(value || 0), 0),
       );
 
       console.log({ reciept });
