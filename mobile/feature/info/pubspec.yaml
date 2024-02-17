@@ -22,3 +22,5 @@ dependencies:
     path: ../../navigation
   mobile_app:
     path: ../..
+
+  google_fonts: ^6.1.0

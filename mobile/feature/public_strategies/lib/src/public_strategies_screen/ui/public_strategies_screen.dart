@@ -16,7 +16,7 @@ class PublicStrategiesScreen extends StatelessWidget {
           appRouter: appLocator<AppRouter>(),
         );
       },
-      child: const WelcomeForm(),
+      child: const PublicStrategiesForm(),
     );
   }
 }

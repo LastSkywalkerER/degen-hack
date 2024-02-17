@@ -1,7 +1,7 @@
 import 'package:core/core.dart';
 import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
-import 'package:home_app_bar/home_app_bar.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:info/info.dart';
 import 'package:my_strategies/my_strategies.dart';
 import 'package:my_wallet/my_wallet.dart';
@@ -18,18 +18,29 @@ class HomeScreen extends StatefulWidget {
 int currentIndex = 0;
 
 class _HomeScreenState extends State<HomeScreen> {
+  List<BankListDataModel> bankDataList = [
+    BankListDataModel("Sepolia",
+        "https://www.kindpng.com/picc/m/83-837808_sbi-logo-state-bank-of-india-group-png.png"),
+    BankListDataModel("Second network",
+        "https://www.pngix.com/pngfile/big/12-123534_download-hdfc-bank-hd-png-download.png"),
+  ];
+  late BankListDataModel _bankChoose = bankDataList[0];
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  void _onDropDownItemSelected(BankListDataModel newSelectedBank) {
+    setState(() {
+      _bankChoose = newSelectedBank;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: <BlocProvider<dynamic>>[
-        BlocProvider<HomeAppBarBloc>(
-          lazy: false,
-          create: (BuildContext context) {
-            return HomeAppBarBloc(
-              appRouter: appLocator<AppRouter>(),
-            );
-          },
-        ),
         BlocProvider<InfoBloc>(
           lazy: false,
           create: (BuildContext context) {
@@ -64,6 +75,77 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ],
       child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Color(0xFF171822),
+          leading: Theme(
+            data: Theme.of(context).copyWith(
+              highlightColor: Colors.transparent,
+              splashColor: Colors.transparent,
+            ),
+            child: IconButton(
+              icon: Icon(Icons.menu, color: Colors.white),
+              onPressed: () {
+                // Обработчик нажатия
+              },
+            ),
+          ),
+          title: PreferredSize(
+            preferredSize: Size.fromHeight(kToolbarHeight),
+            child: Padding(
+              padding: EdgeInsets.only(right: 40),
+              child: DropdownButtonHideUnderline(
+                child: DropdownButton<BankListDataModel>(
+                  dropdownColor: Color(0xFF171822), // Темный цвет фона выпадающего списка
+                  style: GoogleFonts.poppins(
+                    fontSize: 20,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  hint: Text(
+                    "Select Bank",
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 16,
+                      fontFamily: "verdana_regular",
+                    ),
+                  ),
+                  items: bankDataList
+                      .map<DropdownMenuItem<BankListDataModel>>((BankListDataModel value) {
+                    return DropdownMenuItem(
+                      value: value,
+                      child: Row(
+                        children: [
+                          Text(value.bank_name),
+                        ],
+                      ),
+                    );
+                  }).toList(),
+                  isExpanded: true,
+                  isDense: true,
+                  onChanged: (newSelectedBank) {
+                    _onDropDownItemSelected(newSelectedBank!);
+                  },
+                  value: _bankChoose,
+                ),
+              ),
+            ),
+          ),
+          actions: [
+            Theme(
+              data: Theme.of(context).copyWith(
+                highlightColor: Colors.transparent,
+                splashColor: Colors.transparent,
+              ),
+              child: IconButton(
+                icon: Icon(Icons.notifications_none, color: Colors.white),
+                onPressed: () {
+                  // Обработчик нажатия
+                },
+              ),
+            ),
+          ],
+          elevation: 0,
+        ),
         backgroundColor: Color(0xFF21213B),
         body: getBody(),
         bottomNavigationBar: AppBottomBar(
@@ -116,4 +198,10 @@ class _HomeScreenState extends State<HomeScreen> {
         return const SizedBox.shrink();
     }
   }
+}
+
+class BankListDataModel {
+  String bank_name;
+  String bank_logo;
+  BankListDataModel(this.bank_name, this.bank_logo);
 }

@@ -16,7 +16,7 @@ class MyStrategiesScreen extends StatelessWidget {
           appRouter: appLocator<AppRouter>(),
         );
       },
-      child: const WelcomeForm(),
+      child: const MyStrategiesForm(),
     );
   }
 }
