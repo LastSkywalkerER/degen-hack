@@ -1,19 +1,21 @@
 import { create } from "zustand";
 import { jwtDecode } from "jwt-decode";
 
+import { filter } from "rxjs";
 import { useStore } from "@shared/services/store/store.service.ts";
-import { LoggedUser } from "@entities/Users";
-
-import { roleFeatures, UserFeatures } from "@shared/constants/roleFeatures.ts";
+import { LoggedUser, UserData } from "@entities/Users";
+import { Users } from "@shared/api/Users/Users.ts";
+import { useWallet } from "@shared/services/wallet/wallet.service.ts";
+import { Auth } from "@shared/api/auth/Auth.ts";
 
 type UserStore = {
   user?: LoggedUser;
-  permissions?: Record<UserFeatures, boolean>;
+  useData?: UserData;
 
   login: () => Promise<void>;
-  logout: () => void;
+  logout: () => Promise<void>;
+  refresh: () => Promise<void>;
   getActiveUser: () => Promise<void>;
-  isHavePermission: (permissions: UserFeatures[]) => boolean;
 };
 
 const initUser = () => {
@@ -31,62 +33,61 @@ export const useUser = create<UserStore>()((set, get) => ({
   userData: null,
 
   getActiveUser: async () => {
-    // const { user } = get();
+    const { user } = get();
 
-    // const userData = user && (await Users.getUser(user.userId)).data;
+    const userData = user && (await Users.getUser()).data;
 
-    // if (!userData) return;
+    if (!userData) return;
 
     set((state) => ({
       ...state,
-      // permissions: state.user
-      //   ? roleFeatures[state.user.role as Roles].reduce<Record<UserFeatures, boolean>>(
-      //       (acc, permission) => ({ ...acc, [permission]: true }),
-      //       {} as Record<UserFeatures, boolean>,
-      //     )
-      //   : undefined,
+      userData,
     }));
   },
 
   login: async () => {
     const { getActiveUser } = get();
+    const { signer } = useWallet.getState();
+    const { setTokens } = useStore.getState();
 
-    // if (!account?.address) return;
-    //
-    // const {
-    //   data: { nonce },
-    // } = await Auth.getMessage(account?.address);
-    // const signature = await signMessage(nonce);
+    signer.pipe(filter((signer) => !!signer)).subscribe(async (signer) => {
+      if (!signer) return;
 
-    // if (!signature) return;
-    // const { data } = await Auth.verifySignature(account?.address, signature);
-    //
-    // await setTokens(data);
-    //
-    // const user = jwtDecode<LoggedUser>(data.accessToken);
-    //
-    // set((state) => ({
-    //   ...state,
-    //   user,
-    // }));
+      const {
+        data: { message },
+      } = await Auth.getMessage(await signer.getAddress());
+      const signature = await signer.signMessage(message);
 
-    await getActiveUser();
+      if (!signature) return;
+      const { data } = await Auth.verifySignature(await signer.getAddress(), signature);
+
+      await setTokens(data);
+
+      const user = jwtDecode<LoggedUser>(data.accessToken);
+
+      set((state) => ({
+        ...state,
+        user,
+      }));
+
+      await getActiveUser();
+    });
   },
 
-  logout: () => {
+  logout: async () => {
     const { removeTokens } = useStore.getState();
 
     removeTokens();
     set((state) => ({ ...state, user: undefined, userData: null }));
   },
 
-  isHavePermission: (permissions) => {
-    const { user } = get();
+  refresh: async () => {
+    const { setTokens, refreshToken } = useStore.getState();
 
-    return user?.role
-      ? permissions.length > 0
-        ? permissions.every((permission) => roleFeatures[user.role].includes(permission))
-        : true
-      : false;
+    if (!refreshToken) return;
+
+    const { data } = await Auth.refresh(refreshToken);
+
+    setTokens(data);
   },
 }));

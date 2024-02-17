@@ -1,5 +1,5 @@
 import * as React from "react";
-import { FC } from "react";
+import { FC, useCallback } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -14,6 +14,7 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import { useNavigate } from "react-router-dom";
+import { ConnectWallet } from "@thirdweb-dev/react";
 import { useUser } from "@shared/services/user/user.service.ts";
 import { RoutesNames } from "@shared/constants/routes-names.ts";
 
@@ -21,12 +22,10 @@ const pages = ["Products", "Pricing", "Blog"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 export const Header: FC = () => {
-  const { user } = useUser();
-
+  const { user, login } = useUser();
+  const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
-
-  const navigate = useNavigate();
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -43,10 +42,16 @@ export const Header: FC = () => {
     setAnchorElUser(null);
   };
 
+  const handleLogin = useCallback(async () => {
+    await login();
+
+    navigate(RoutesNames.Home);
+  }, []);
+
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
-        <Toolbar disableGutters>
+        <Toolbar disableGutters sx={{ gap: 2 }}>
           <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
           <Typography
             onClick={() => navigate(RoutesNames.Home)}
@@ -165,10 +170,11 @@ export const Header: FC = () => {
               </Menu>
             </Box>
           ) : (
-            <Button color="inherit" onClick={() => navigate(RoutesNames.LoginPage)}>
+            <Button color="inherit" onClick={handleLogin}>
               Login
             </Button>
           )}
+          <ConnectWallet />
         </Toolbar>
       </Container>
     </AppBar>

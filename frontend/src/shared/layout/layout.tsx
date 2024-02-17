@@ -1,22 +1,20 @@
 import { Outlet } from "react-router-dom";
-
-import Container from "@mui/material/Container";
-import { Header } from "@features/Header/Header.tsx";
+import Box from "@mui/material/Box";
+import { Header } from "@widgets/Header/Header.tsx";
 
 const Layout = () => {
   return (
-    <Container
-      disableGutters
+    <Box
       sx={{
+        width: "100%",
+        height: "100vh",
         display: "flex",
         flexDirection: "column",
-        height: "100vh",
-        width: "100%",
       }}
     >
       <Header />
       <Outlet />
-    </Container>
+    </Box>
   );
 };
 
