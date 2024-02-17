@@ -3,21 +3,41 @@ import { run } from "hardhat";
 import { config } from "dotenv";
 import { ethers, upgrades } from "hardhat";
 
-import { Multicall3 } from "../typechain-types";
+import { Multicall3, TokenFactory, TOK } from "../typechain-types";
+import { usdcAddress } from "../constants";
 
 config();
-
-const pricePerToken = ethers.utils.parseUnits("0.015", 6);
-const totalSupply = ethers.utils.parseUnits("15000000000", 6);
 
 async function main() {
     const [owner] = await ethers.getSigners();
 
-    const Multicall = await ethers.getContractFactory("Multicall3");
-    const multicall = (await upgrades.deployProxy(Multicall, [
-    ])) as Multicall3;
-    await multicall.deployed();
-    console.log(multicall.address);
+    // const Multicall = await ethers.getContractFactory("Multicall3");
+    // const multicall = (await upgrades.deployProxy(Multicall, [
+    // ])) as Multicall3;
+    // await multicall.deployed();
+    // console.log("Multicall ", multicall.address);
+
+    const TokenFactory = await ethers.getContractFactory("TokenFactory");
+    const tokenFactory = (await upgrades.deployProxy(TokenFactory, [
+    ])) as TokenFactory;
+    await tokenFactory.deployed();
+    console.log("Factory ", tokenFactory.address);
+
+    await verify(await tokenFactory.tokenImplementation(), []);
+    await verify(await tokenFactory.allowedListImplementation(), []);
+
+    const TOK = await ethers.getContractFactory("TOK");
+    const tok = (await upgrades.deployProxy(TOK, [
+        usdcAddress
+    ])) as TOK;
+    await tok.deployed();
+    console.log("TOK ", tok.address);
+
+    // const Multicall = await ethers.getContractFactory("Multicall3");
+    // const multicall = (await upgrades.deployProxy(Multicall, [
+    // ])) as Multicall3;
+    // await multicall.deployed();
+    // console.log("Multicall ", multicall.address);
 }
 
 const delay = async (milliseconds: number) =>
