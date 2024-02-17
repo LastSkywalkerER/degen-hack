@@ -9,3 +9,6 @@ export const loginHelmet: HelmetOptions = {
 export const buildStrategyHelmet: HelmetOptions = {
   title: "SE: Build",
 };
+export const myStrategyHelmet: HelmetOptions = {
+  title: "SE: My",
+};

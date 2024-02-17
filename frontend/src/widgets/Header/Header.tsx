@@ -23,8 +23,12 @@ const pages = [
     name: "Build strategy",
     route: RoutesNames.App + RoutesNames.BuildStrategy,
   },
+  {
+    name: "My strategy",
+    route: RoutesNames.App + RoutesNames.MyStrategy,
+  },
 ];
-const settings = ["Logout"];
+const settings = [{ name: "Logout", onClick: useUser.getState().logout }];
 
 export const Header: FC = () => {
   const { user, login } = useUser();
@@ -174,9 +178,15 @@ export const Header: FC = () => {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">{setting}</Typography>
+                {settings.map(({ name, onClick }) => (
+                  <MenuItem
+                    key={name}
+                    onClick={() => {
+                      onClick();
+                      handleCloseUserMenu();
+                    }}
+                  >
+                    <Typography textAlign="center">{name}</Typography>
                   </MenuItem>
                 ))}
               </Menu>

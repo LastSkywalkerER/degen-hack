@@ -14,3 +14,8 @@ export interface UIStep {
   isPublic: boolean;
   serialNumber: string;
 }
+
+export interface UIStrategy {
+  title: string;
+  steps: UIStep[];
+}

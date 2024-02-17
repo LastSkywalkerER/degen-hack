@@ -6,6 +6,7 @@ import { RoutesNames } from "./constants/routes-names";
 
 const Home = lazy(() => import("../pages/Home/Home"));
 const BuildStrategy = lazy(() => import("../pages/BuildStrategy/BuildStrategy"));
+const MyStrategies = lazy(() => import("../pages/MyStrategies/MyStrategies"));
 const Layout = lazy(() => import("./layout/layout"));
 
 export const routes = createBrowserRouter([
@@ -28,6 +29,10 @@ export const routes = createBrowserRouter([
           {
             path: RoutesNames.App + RoutesNames.BuildStrategy,
             element: <BuildStrategy />,
+          },
+          {
+            path: RoutesNames.App + RoutesNames.MyStrategy,
+            element: <MyStrategies />,
           },
           {
             path: RoutesNames.App,

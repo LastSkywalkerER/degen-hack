@@ -3,4 +3,5 @@ export enum RoutesNames {
   LoginPage = "/login",
   App = "/app",
   BuildStrategy = "/build-strategy",
+  MyStrategy = "/my-strategy",
 }

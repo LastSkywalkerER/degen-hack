@@ -12,7 +12,7 @@ import { StepCard } from "@widgets/StepCard/StepCard.tsx";
 import { useStrategy } from "@shared/services/strategy/strategy.service.ts";
 import { useWeb3 } from "@shared/services/web3/web3.service.ts";
 
-const mockSteps: UIStep[] = [
+export const mockSteps: UIStep[] = [
   {
     args: [
       { id: "0", name: "address", value: "" },
