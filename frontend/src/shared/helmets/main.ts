@@ -1,11 +1,11 @@
 import { HelmetOptions } from "../hocs";
 
 export const mainHelmet: HelmetOptions = {
-  title: "Degen hack",
+  title: "SE hack",
 };
 export const loginHelmet: HelmetOptions = {
-  title: "Degen: Login",
+  title: "SE: Login",
 };
 export const buildStrategyHelmet: HelmetOptions = {
-  title: "Degen: Build",
+  title: "SE: Build",
 };

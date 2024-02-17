@@ -24,7 +24,7 @@ const pages = [
     route: RoutesNames.App + RoutesNames.BuildStrategy,
   },
 ];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const settings = ["Logout"];
 
 export const Header: FC = () => {
   const { user, login } = useUser();
@@ -74,7 +74,7 @@ export const Header: FC = () => {
               cursor: "pointer",
             }}
           >
-            LOGO
+            Strategic Finance
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -132,7 +132,7 @@ export const Header: FC = () => {
               textDecoration: "none",
             }}
           >
-            LOGO
+            Strategic Finance
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map(({ name, route }) => (
