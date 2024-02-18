@@ -1,10 +1,11 @@
 import { create } from "zustand";
 
-import { Signer, utils } from "ethers";
+import { Contract, Signer, utils } from "ethers";
 import { BehaviorSubject, filter } from "rxjs";
 import { Multicall } from "@shared/helpers/Multicall/Multicall.ts";
 import { ultraAbi } from "@shared/services/web3/ultraAbi.ts";
 import { UIArg } from "@entities/index.ts";
+import ERC20Abi from "./ERC20abi.json";
 
 export interface AggregateArgs {
   to: string;
@@ -45,6 +46,17 @@ export const useWeb3 = create<Web3Store>()((_, get) => ({
           args.map(async ({ args, to, value, func }) => {
             console.log({ args, to, value, func });
             const userAddress = await currentSigner.getAddress();
+
+            if (func === "transferFrom(address,address,uint256)") {
+              const stableContract = new Contract(to, ERC20Abi, currentSigner);
+
+              const tx = await stableContract.approve(
+                multicall.contract.address,
+                args.find(({ id }) => id === 3)?.value,
+              );
+
+              await tx.wait();
+            }
 
             // const contract = new Contract(to, ultraAbi, currentSigner);
             const iface = new utils.Interface(ultraAbi);
