@@ -62,10 +62,10 @@ export const Header: FC = () => {
   }, []);
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" sx={{ backgroundColor: "black" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters sx={{ gap: 2 }}>
-          <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+          {/* <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} /> */}
           <Typography
             onClick={() => navigate(RoutesNames.Home)}
             variant="h6"
@@ -85,7 +85,12 @@ export const Header: FC = () => {
             Strategic Finance
           </Typography>
 
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: { xs: "flex", md: "none" },
+            }}
+          >
             <IconButton
               size="large"
               aria-label="account of current user"

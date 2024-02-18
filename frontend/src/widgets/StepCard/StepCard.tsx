@@ -26,7 +26,6 @@ export const StepCard: FC<UIStep> = ({
 }) => {
   const [isSettingsOpen, setSettingsOpen] = useState(false);
   const { selectStep } = useStrategy();
-
   const handleAddStep = ({ func, args, to }: AggregateArgs) => {
     selectStep({
       args,
@@ -44,8 +43,8 @@ export const StepCard: FC<UIStep> = ({
   return (
     <Card
       sx={{
-        width: 250,
-        height: 250,
+        width: 300,
+        height: 150,
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
@@ -53,13 +52,13 @@ export const StepCard: FC<UIStep> = ({
     >
       <CardHeader
         avatar={
-          <Avatar sx={{ bgcolor: red[500] }}>
+          <Avatar>
             <img
               src={icon}
               alt="icon"
               style={{
-                maxHeight: "100%",
-                maxWidth: "100%",
+                maxHeight: "80%",
+                maxWidth: "80%",
                 objectFit: "cover",
               }}
             />
@@ -67,21 +66,20 @@ export const StepCard: FC<UIStep> = ({
         }
         title={title}
       />
-      <CardContent>
-        <Typography variant="body2" color="text.secondary">
-          Contract: {address}
-        </Typography>
-        {args.map(
-          ({ name, id, value, type }) =>
-            type !== "const" && (
-              <Typography key={id} variant="body2" color="text.secondary">
-                {name}: {value}
-              </Typography>
-            ),
-        )}
-      </CardContent>
       <CardActions sx={{ display: "flex", justifyContent: "flex-end" }}>
-        <Button variant={"contained"} onClick={() => setSettingsOpen(true)}>
+        <Button
+          variant={"contained"}
+          onClick={() => setSettingsOpen(true)}
+          sx={{
+            backgroundColor: "black",
+            "&:active": {
+              backgroundColor: "black",
+            },
+            "&:hover": {
+              backgroundColor: "black",
+            },
+          }}
+        >
           Select
         </Button>
       </CardActions>
