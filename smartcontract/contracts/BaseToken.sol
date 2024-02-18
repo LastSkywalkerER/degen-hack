@@ -32,7 +32,7 @@ contract BaseToken is
     bytes32 public constant DEPLOYER_ROLE = keccak256("DEPLOYER_ROLE");
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
 
-    IAllowedList private allowedList;
+    IAllowedList public allowedList;
 
     // Contract URI
     string public contractURI;
@@ -57,10 +57,6 @@ contract BaseToken is
     ) external initializer {
         require(bytes(contractURI_).length > 0, "Empty contract URI");
         require(allowedList_ != address(0), "LOL");
-        // require(
-        //     ERC165Checker.supportsInterface(allowedList_, type(IAllowedList).interfaceId),
-        //     "Incorrect Allowed List"
-        // );
 
         __Ownable_init();
         __Pausable_init();

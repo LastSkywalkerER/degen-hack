@@ -8,7 +8,7 @@ const Abi = [
         uint256 amount,
         address onBehalfOf,
         uint16 referralCode
-      ) public`,
+      )`,
 
     `function borrow(
         address asset,
@@ -16,7 +16,7 @@ const Abi = [
         uint256 interestRateMode,
         uint16 referralCode,
         address onBehalfOf
-      ) public`,
+      )`,
 ];
 const abi2 = ["function transferFrom(address from, address to, uint amount)",]
 // Tests
@@ -33,11 +33,6 @@ describe("Multicall", function () {
         const multicall = (await upgrades.deployProxy(Multicall, [
         ])) as Multicall3;
         await multicall.deployed();
-
-        // const Multicall = await ethers.getContractFactory("Multicall2");
-        // const multicall = (await upgrades.deployProxy(Multicall, [
-        // ])) as Multicall2;
-        // await multicall.deployed();
 
         const StableCoin = await ethers.getContractFactory("StableCoin");
         const stableCoin = (await upgrades.deployProxy(StableCoin, [
@@ -60,13 +55,20 @@ describe("Multicall", function () {
         it("Should aggregate", async function () {
             const { owner, multicall, rec, stableCoin } = await loadFixture(deployFixture);
 
-            const iface = new ethers.utils.Interface(abi2);
-            const encodedSupplyData = iface.encodeFunctionData("transferFrom", [owner.address, rec.address, 1]);
+            const iface = new ethers.utils.Interface(Abi);
+            // const encodedSupplyData = iface.encodeFunctionData("transferFrom", [owner.address, rec.address, 1]);
+            const encodedSupplyData = iface.encodeFunctionData("supply", [stableCoin.address, 1, stableCoin.address, 0]);
             // const encodedBorrowData = iface.encodeFunctionData('borrow', ["0x94a9D9AC8a22534E3FaCa9F4e7F2E2cf85d5E4C8", 1, 1]);
+
+            // const supply: Multicall3.CallStruct =
+            // {
+            //     target: stableCoin.address,
+            //     callData: encodedSupplyData
+            // };
 
             const supply: Multicall3.CallStruct =
             {
-                target: stableCoin.address,
+                target: "0x6Ae43d3271ff6888e7Fc43Fd7321a503ff738951",
                 callData: encodedSupplyData
             };
 
@@ -78,8 +80,6 @@ describe("Multicall", function () {
 
             console.log(supply.callData);
 
-
-            await stableCoin.approve(owner.address, 1);
             await stableCoin.approve(multicall.address, 2);
 
             const tx = await multicall.aggregate([supply]);
