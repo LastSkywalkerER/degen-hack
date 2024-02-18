@@ -12,3 +12,6 @@ export const buildStrategyHelmet: HelmetOptions = {
 export const myStrategyHelmet: HelmetOptions = {
   title: "SE: My",
 };
+export const publicStrategiesHelmet: HelmetOptions = {
+  title: "SE: Public",
+};

@@ -1,6 +1,7 @@
 export interface UIArg {
   name: string;
-  id: string;
+  id: number;
+  type: string;
   value: string;
 }
 
@@ -18,4 +19,26 @@ export interface UIStep {
 export interface UIStrategy {
   title: string;
   steps: UIStep[];
+}
+
+export interface ResStep {
+  id: number;
+  title: string;
+  address: string;
+  func: string;
+  icon: string;
+  data: string;
+  isPublic: boolean;
+  serialNumber: string;
+}
+
+export interface ReqAddUserStrategy {
+  title: string;
+  steps: {
+    id: number;
+    address: string;
+    title: string;
+    func: string;
+    data: UIArg[];
+  }[];
 }

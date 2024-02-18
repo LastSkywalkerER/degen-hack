@@ -71,11 +71,14 @@ export const StepCard: FC<UIStep> = ({
         <Typography variant="body2" color="text.secondary">
           Contract: {address}
         </Typography>
-        {args.map(({ name, id, value }) => (
-          <Typography key={id} variant="body2" color="text.secondary">
-            {name}: {value}
-          </Typography>
-        ))}
+        {args.map(
+          ({ name, id, value, type }) =>
+            type !== "const" && (
+              <Typography key={id} variant="body2" color="text.secondary">
+                {name}: {value}
+              </Typography>
+            ),
+        )}
       </CardContent>
       <CardActions sx={{ display: "flex", justifyContent: "flex-end" }}>
         <Button variant={"contained"} onClick={() => setSettingsOpen(true)}>

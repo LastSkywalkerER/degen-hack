@@ -3,6 +3,7 @@ import { lazy } from "react";
 
 import { RouteGuard } from "@features/RouteGuard/RouteGuard.tsx";
 import { RoutesNames } from "./constants/routes-names";
+import PublicStrategies from "@pages/PublicStrategies/PublicStrategies";
 
 const Home = lazy(() => import("../pages/Home/Home"));
 const BuildStrategy = lazy(() => import("../pages/BuildStrategy/BuildStrategy"));
@@ -37,6 +38,10 @@ export const routes = createBrowserRouter([
           {
             path: RoutesNames.App,
             element: <Navigate to={RoutesNames.App + RoutesNames.BuildStrategy} />,
+          },
+          {
+            path: RoutesNames.App + RoutesNames.PublicStrategies,
+            element: <PublicStrategies />,
           },
         ],
       },

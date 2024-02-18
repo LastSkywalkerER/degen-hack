@@ -24,8 +24,12 @@ const pages = [
     route: RoutesNames.App + RoutesNames.BuildStrategy,
   },
   {
-    name: "My strategy",
+    name: "My strategies",
     route: RoutesNames.App + RoutesNames.MyStrategy,
+  },
+  {
+    name: "Public strategies",
+    route: RoutesNames.App + RoutesNames.PublicStrategies,
   },
 ];
 const settings = [{ name: "Logout", onClick: useUser.getState().logout }];

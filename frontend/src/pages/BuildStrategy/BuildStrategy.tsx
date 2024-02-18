@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
@@ -12,76 +12,35 @@ import { StepCard } from "@widgets/StepCard/StepCard.tsx";
 import { useStrategy } from "@shared/services/strategy/strategy.service.ts";
 import { useWeb3 } from "@shared/services/web3/web3.service.ts";
 
-export const mockSteps: UIStep[] = [
-  {
-    args: [
-      { id: "0", name: "address", value: "" },
-      {
-        id: "1",
-        name: "address",
-        value: "",
-      },
-      { id: "2", name: "uint256", value: "" },
-    ],
-    func: "transferFrom(address,address,uint256)",
-    icon: "https://cdn.icon-icons.com/icons2/4161/PNG/512/bag_shopping_client_help_business_support_customer_icon_261688.png",
-    address: "",
-    id: 0,
-    isPublic: false,
-    serialNumber: "0",
-    title: "transferFrom",
-  },
-  {
-    args: [
-      { id: "0", name: "address", value: "" },
-      {
-        id: "1",
-        name: "address",
-        value: "",
-      },
-      { id: "2", name: "uint256", value: "" },
-    ],
-    func: "transferFrom(address,address,uint256)",
-    icon: "https://cdn.icon-icons.com/icons2/4161/PNG/512/bag_shopping_client_help_business_support_customer_icon_261688.png",
-    address: "",
-    id: 0,
-    isPublic: false,
-    serialNumber: "1",
-    title: "transferFrom",
-  },
-  {
-    args: [
-      { id: "0", name: "address", value: "" },
-      {
-        id: "1",
-        name: "address",
-        value: "",
-      },
-      { id: "2", name: "uint256", value: "" },
-    ],
-    func: "transferFrom(address,address,uint256)",
-    icon: "https://cdn.icon-icons.com/icons2/4161/PNG/512/bag_shopping_client_help_business_support_customer_icon_261688.png",
-    address: "",
-    id: 0,
-    isPublic: false,
-    serialNumber: "2",
-    title: "transferFrom",
-  },
-];
-
 const BuildStrategy: FC = () => {
-  const { steps, title, setTitle } = useStrategy();
+  const { steps, title, setTitle, getAllSteps, publicSteps, addUserStrategy } = useStrategy();
   const { tryAggregate } = useWeb3();
 
+  useEffect(() => {
+    getAllSteps();
+  }, []);
+
   const handleStart = () => {
-    tryAggregate(
-      steps.map(({ args, func, address }) => ({
-        args,
-        func,
-        // value,
-        to: address,
-      })),
-    );
+    console.log(steps, "select");
+    const formSteps = steps.map(({ args, func, address, id, title }) => ({
+      id,
+      address,
+      title,
+      func,
+      data: args,
+    }));
+    addUserStrategy({
+      title: title || "",
+      steps: formSteps,
+    });
+    // tryAggregate(
+    //   steps.map(({ args, func, address }) => ({
+    //     args,
+    //     func,
+    //     // value,
+    //     to: address,
+    //   })),
+    // );
   };
 
   return (
@@ -102,7 +61,7 @@ const BuildStrategy: FC = () => {
           height: "100%",
         }}
       >
-        {mockSteps.map((props) => (
+        {publicSteps.map((props) => (
           <StepCard key={props.id} {...props} />
         ))}
       </Box>

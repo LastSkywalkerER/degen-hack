@@ -2,16 +2,16 @@ import { FC, useEffect } from "react";
 
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
-import { myStrategyHelmet } from "@shared/helmets/main.ts";
+import { publicStrategiesHelmet } from "@shared/helmets/main.ts";
 import { withHelmet } from "@shared/hocs";
 import { StrategyCard } from "@widgets/StrategyCard/StrategyCard.tsx";
 import { useStrategy } from "@shared/services/strategy/strategy.service";
 
-const MyStrategies: FC = () => {
-  const { getCurrentUserStrategies, userStrategies } = useStrategy();
+const PublicStrategies: FC = () => {
+  const { publicStrategies, getPublicStrategies } = useStrategy();
 
   useEffect(() => {
-    getCurrentUserStrategies();
+    getPublicStrategies();
   }, []);
 
   return (
@@ -32,7 +32,7 @@ const MyStrategies: FC = () => {
           height: "100%",
         }}
       >
-        {userStrategies.map((props) => (
+        {publicStrategies.map((props) => (
           <StrategyCard key={props.title} {...props} />
         ))}
       </Box>
@@ -40,4 +40,4 @@ const MyStrategies: FC = () => {
   );
 };
 
-export default withHelmet(MyStrategies)(myStrategyHelmet);
+export default withHelmet(PublicStrategies)(publicStrategiesHelmet);

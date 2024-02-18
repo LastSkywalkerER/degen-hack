@@ -4,4 +4,5 @@ export enum RoutesNames {
   App = "/app",
   BuildStrategy = "/build-strategy",
   MyStrategy = "/my-strategy",
+  PublicStrategies = "/public-strategies",
 }

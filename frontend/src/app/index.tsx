@@ -15,6 +15,7 @@ import { useUser } from "@shared/services/user/user.service";
 import { usePolling } from "@shared/services/polling/polling.service.ts";
 import { useWeb3 } from "@shared/services/web3/web3.service.ts";
 import { env } from "@shared/config/environment.ts";
+import { useStrategy } from "@shared/services/strategy/strategy.service";
 import { routes } from "../shared/routes";
 import { mainHelmet } from "../shared/helmets/main";
 
