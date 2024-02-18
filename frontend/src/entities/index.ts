@@ -1,7 +1,7 @@
 export interface UIArg {
   name: string;
   id: number;
-  type: string;
+  type: "userValue" | "const" | "userAddress" | "multicallAddress";
   value: string;
 }
 

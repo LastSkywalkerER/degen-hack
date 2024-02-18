@@ -19,7 +19,7 @@ type StrategyStore = {
 };
 
 export const useStrategy = create<StrategyStore>()((set) => ({
-  title: "Hello world",
+  title: "My Perfect Strategy",
   steps: [],
   publicSteps: [],
   userStrategies: [],

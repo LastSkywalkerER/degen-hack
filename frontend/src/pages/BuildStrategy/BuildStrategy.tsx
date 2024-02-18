@@ -33,14 +33,14 @@ const BuildStrategy: FC = () => {
       title: title || "",
       steps: formSteps,
     });
-    // tryAggregate(
-    //   steps.map(({ args, func, address }) => ({
-    //     args,
-    //     func,
-    //     // value,
-    //     to: address,
-    //   })),
-    // );
+    tryAggregate(
+      steps.map(({ args, func, address }) => ({
+        args,
+        func,
+        // value,
+        to: address,
+      })),
+    );
   };
 
   const handlePublic = () => {

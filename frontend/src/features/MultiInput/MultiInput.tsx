@@ -9,7 +9,7 @@ export const MultiInput: FC<{
   onChange: (args: UIArg[]) => void;
 }> = ({ value, inputs, onChange }) => {
   const handleChangeSingleInput =
-    (id: string) => (e: SyntheticEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+    (id: number) => (e: SyntheticEvent<HTMLTextAreaElement | HTMLInputElement>) => {
       const newValue = inputs.map((oldValue, index) => {
         if (oldValue.id !== id) return value ? value[index] : oldValue;
 
@@ -22,13 +22,15 @@ export const MultiInput: FC<{
       onChange(newValue);
     };
 
-  return inputs.map(({ name, id }) => (
-    <TextField
-      key={id}
-      label={name}
-      variant="outlined"
-      value={value?.find((value) => value.id === id)?.value}
-      onChange={handleChangeSingleInput(id)}
-    />
-  ));
+  return inputs
+    .filter(({ type }) => type === "userValue")
+    .map(({ name, id }) => (
+      <TextField
+        key={id}
+        label={name}
+        variant="outlined"
+        value={value?.find((value) => value.id === id)?.value}
+        onChange={handleChangeSingleInput(id)}
+      />
+    ));
 };

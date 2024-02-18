@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-import { Contract, Signer, utils } from "ethers";
+import { Signer, utils } from "ethers";
 import { BehaviorSubject, filter } from "rxjs";
 import { Multicall } from "@shared/helpers/Multicall/Multicall.ts";
 import { ultraAbi } from "@shared/services/web3/ultraAbi.ts";
@@ -40,14 +40,13 @@ export const useWeb3 = create<Web3Store>()((_, get) => ({
       const multicall = new Multicall(currentSigner);
       console.log("tryAggregate", { multicall });
 
-      // return await multicall.test();
-
       const reciept = await multicall.tryAggregate(
         await Promise.all(
           args.map(async ({ args, to, value, func }) => {
             console.log({ args, to, value, func });
+            const userAddress = await currentSigner.getAddress();
 
-            const contract = new Contract(to, ultraAbi, currentSigner);
+            // const contract = new Contract(to, ultraAbi, currentSigner);
             const iface = new utils.Interface(ultraAbi);
             console.log({ iface });
 
@@ -57,7 +56,17 @@ export const useWeb3 = create<Web3Store>()((_, get) => ({
                 if (+a.id < +b.id) return -1;
                 return 0;
               })
-              .map(({ value }) => value);
+              .map(({ value, type }) => {
+                if (type === "userAddress") {
+                  return userAddress;
+                }
+
+                if (type === "multicallAddress") {
+                  return multicall.contract.address;
+                }
+
+                return value;
+              });
 
             const data = await iface.encodeFunctionData(func, sortedArgs);
 
@@ -66,7 +75,7 @@ export const useWeb3 = create<Web3Store>()((_, get) => ({
               func,
               target: to,
               callData: data,
-              contractData: await contract.populateTransaction[func](...sortedArgs),
+              // contractData: await contract.populateTransaction[func](...sortedArgs),
             });
 
             return {
