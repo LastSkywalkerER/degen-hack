@@ -26,12 +26,12 @@ async function main() {
     await verify(await tokenFactory.tokenImplementation(), []);
     await verify(await tokenFactory.allowedListImplementation(), []);
 
-    const TOK = await ethers.getContractFactory("TOK");
-    const tok = (await upgrades.deployProxy(TOK, [
-        usdcAddress
-    ])) as TOK;
-    await tok.deployed();
-    console.log("TOK ", tok.address);
+    // const TOK = await ethers.getContractFactory("TOK");
+    // const tok = (await upgrades.deployProxy(TOK, [
+    //     usdcAddress
+    // ])) as TOK;
+    // await tok.deployed();
+    // console.log("TOK ", tok.address);
 
     // const Multicall = await ethers.getContractFactory("Multicall3");
     // const multicall = (await upgrades.deployProxy(Multicall, [
