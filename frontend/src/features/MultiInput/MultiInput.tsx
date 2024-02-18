@@ -22,13 +22,15 @@ export const MultiInput: FC<{
       onChange(newValue);
     };
 
-  return inputs.map(({ name, id }) => (
-    <TextField
-      key={id}
-      label={name}
-      variant="outlined"
-      value={value?.find((value) => value.id === id)?.value}
-      onChange={handleChangeSingleInput(id)}
-    />
-  ));
+  return inputs
+    .filter(({ type }) => type === "userValue")
+    .map(({ name, id }) => (
+      <TextField
+        key={id}
+        label={name}
+        variant="outlined"
+        value={value?.find((value) => value.id === id)?.value}
+        onChange={handleChangeSingleInput(id)}
+      />
+    ));
 };

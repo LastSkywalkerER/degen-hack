@@ -12,9 +12,7 @@ export const StepSettings: FC<{
   onSubmit: (data: AggregateArgs) => void;
 }> = ({ defaultValues, onSubmit: handleOnSubmit }) => {
   const { handleSubmit, register, control } = useForm<AggregateArgs>({ defaultValues });
-  const [inputs] = useState<UIArg[]>(() =>
-    defaultValues.args.filter(({ type }) => type === "userValue"),
-  );
+  const [inputs] = useState<UIArg[]>(defaultValues.args);
 
   const onSubmit = (data: AggregateArgs) => {
     console.log({ formData: [data] });
