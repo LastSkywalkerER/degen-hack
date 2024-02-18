@@ -66,7 +66,7 @@ export const StrategyCard: FC<IStrategyCard> = ({ title, steps, isPublic }) => {
               )}
               {func.includes("approve") && (
                 <Typography variant="body2" sx={{ fontSize: "13px", fontWeight: "bold" }}>
-                  Approve for buy RWA
+                  Approve ERC20
                 </Typography>
               )}
               {func.includes("process") && (
