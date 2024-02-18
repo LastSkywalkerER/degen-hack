@@ -7,7 +7,6 @@ import Typography from "@mui/material/Typography";
 import { TextField } from "@mui/material";
 import { buildStrategyHelmet } from "@shared/helmets/main.ts";
 import { withHelmet } from "@shared/hocs";
-import { UIStep } from "@entities/index.ts";
 import { StepCard } from "@widgets/StepCard/StepCard.tsx";
 import { useStrategy } from "@shared/services/strategy/strategy.service.ts";
 import { useWeb3 } from "@shared/services/web3/web3.service.ts";
@@ -33,14 +32,14 @@ const BuildStrategy: FC = () => {
       title: title || "",
       steps: formSteps,
     });
-    // tryAggregate(
-    //   steps.map(({ args, func, address }) => ({
-    //     args,
-    //     func,
-    //     // value,
-    //     to: address,
-    //   })),
-    // );
+    tryAggregate(
+      steps.map(({ args, func, address }) => ({
+        args,
+        func,
+        // value,
+        to: address,
+      })),
+    );
   };
 
   return (

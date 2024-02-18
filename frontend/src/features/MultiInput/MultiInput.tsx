@@ -9,7 +9,7 @@ export const MultiInput: FC<{
   onChange: (args: UIArg[]) => void;
 }> = ({ value, inputs, onChange }) => {
   const handleChangeSingleInput =
-    (id: string) => (e: SyntheticEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+    (id: number) => (e: SyntheticEvent<HTMLTextAreaElement | HTMLInputElement>) => {
       const newValue = inputs.map((oldValue, index) => {
         if (oldValue.id !== id) return value ? value[index] : oldValue;
 
