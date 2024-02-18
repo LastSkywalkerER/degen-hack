@@ -18,7 +18,13 @@ export interface UIStep {
 
 export interface UIStrategy {
   title: string;
-  steps: UIStep[];
+  steps: ResStep[];
+}
+
+export interface IStrategyCard {
+  title: string;
+  steps: ResStep[];
+  isPublic: boolean;
 }
 
 export interface ResStep {

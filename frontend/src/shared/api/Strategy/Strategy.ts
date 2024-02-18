@@ -22,4 +22,11 @@ export class Startegy {
   public static async getPublicStrategies() {
     return Startegy.api.get<UIStrategy[]>(`/api/v1/strategy/public/all`);
   }
+
+  public static async addPublicStrategy({ steps, title }: ReqAddUserStrategy) {
+    return Startegy.api.post<ReqAddUserStrategy>(`/api/v1/strategy/public`, {
+      title,
+      steps,
+    });
+  }
 }

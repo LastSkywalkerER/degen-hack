@@ -33,7 +33,7 @@ const MyStrategies: FC = () => {
         }}
       >
         {userStrategies.map((props) => (
-          <StrategyCard key={props.title} {...props} />
+          <StrategyCard key={props.title} {...props} isPublic={false} />
         ))}
       </Box>
     </Container>

@@ -15,6 +15,7 @@ type StrategyStore = {
   addUserStrategy: (data: ReqAddUserStrategy) => Promise<void>;
   getCurrentUserStrategies: () => Promise<void>;
   getPublicStrategies: () => Promise<void>;
+  addPublicStrategy: (data: ReqAddUserStrategy) => Promise<void>;
 };
 
 export const useStrategy = create<StrategyStore>()((set) => ({
@@ -54,5 +55,8 @@ export const useStrategy = create<StrategyStore>()((set) => ({
     console.log(strategies);
 
     set({ publicStrategies: strategies });
+  },
+  addPublicStrategy: async (data: ReqAddUserStrategy) => {
+    await Startegy.addPublicStrategy(data);
   },
 }));

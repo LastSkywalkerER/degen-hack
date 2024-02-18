@@ -5,9 +5,27 @@ import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import Button from "@mui/material/Button";
-import { UIStrategy } from "@entities/index.ts";
+import { IStrategyCard } from "@entities/index.ts";
+import { useStrategy } from "@shared/services/strategy/strategy.service";
 
-export const StrategyCard: FC<UIStrategy> = ({ title, steps }) => {
+export const StrategyCard: FC<IStrategyCard> = ({ title, steps, isPublic }) => {
+  const { addUserStrategy } = useStrategy();
+
+  const handleStart = () => {
+    console.log(steps, "select");
+    const formSteps = steps.map(({ data, func, address, id, title }) => ({
+      id,
+      address,
+      title,
+      func,
+      data: JSON.parse(data),
+    }));
+    addUserStrategy({
+      title: title || "",
+      steps: formSteps,
+    });
+  };
+
   return (
     <Card
       sx={{
@@ -20,14 +38,67 @@ export const StrategyCard: FC<UIStrategy> = ({ title, steps }) => {
     >
       <CardHeader title={title} />
       <CardContent>
-        {steps.map(({ title }) => (
-          <Typography key={title} variant="body2" color="text.secondary">
-            {title}
-          </Typography>
-        ))}
+        {steps
+          .filter((props) => props.serialNumber !== undefined)
+          .sort((a, b) => Number(a.serialNumber) - Number(b.serialNumber))
+          .map(({ title, func }) => (
+            <Typography key={title} variant="body2" color="text.secondary">
+              {func.includes("borrow") && (
+                <Typography variant="body2" sx={{ fontSize: "15px", fontWeight: "bold" }}>
+                  Borrow in AAVE
+                </Typography>
+              )}
+              {func.includes("supply") && (
+                <Typography variant="body2" sx={{ fontSize: "15px", fontWeight: "bold" }}>
+                  Deposit in AAVE
+                </Typography>
+              )}
+              {func.includes("approve") && (
+                <Typography variant="body2" sx={{ fontSize: "13px", fontWeight: "bold" }}>
+                  Approve for buy RWA
+                </Typography>
+              )}
+              {func.includes("process") && (
+                <Typography variant="body2" sx={{ fontSize: "15px", fontWeight: "bold" }}>
+                  Buy RWA
+                </Typography>
+              )}
+            </Typography>
+          ))}
       </CardContent>
       <CardActions sx={{ display: "flex", justifyContent: "flex-end" }}>
-        <Button variant={"contained"}>Use</Button>
+        {isPublic ? (
+          <Button
+            variant={"contained"}
+            sx={{
+              backgroundColor: "black",
+              "&:active": {
+                backgroundColor: "black",
+              },
+              "&:hover": {
+                backgroundColor: "black",
+              },
+            }}
+            onClick={handleStart}
+          >
+            Follow strategy
+          </Button>
+        ) : (
+          <Button
+            variant={"contained"}
+            sx={{
+              backgroundColor: "black",
+              "&:active": {
+                backgroundColor: "black",
+              },
+              "&:hover": {
+                backgroundColor: "black",
+              },
+            }}
+          >
+            Close strategy
+          </Button>
+        )}
       </CardActions>
     </Card>
   );

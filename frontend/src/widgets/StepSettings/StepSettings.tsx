@@ -47,7 +47,19 @@ export const StepSettings: FC<{
           control={control}
         />
         <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-          <Button variant="contained" type={"submit"}>
+          <Button
+            variant="contained"
+            type={"submit"}
+            sx={{
+              backgroundColor: "black",
+              "&:active": {
+                backgroundColor: "black",
+              },
+              "&:hover": {
+                backgroundColor: "black",
+              },
+            }}
+          >
             Add
           </Button>
         </Box>

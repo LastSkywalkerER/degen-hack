@@ -12,7 +12,8 @@ import { useStrategy } from "@shared/services/strategy/strategy.service.ts";
 import { useWeb3 } from "@shared/services/web3/web3.service.ts";
 
 const BuildStrategy: FC = () => {
-  const { steps, title, setTitle, getAllSteps, publicSteps, addUserStrategy } = useStrategy();
+  const { steps, title, setTitle, getAllSteps, publicSteps, addUserStrategy, addPublicStrategy } =
+    useStrategy();
   const { tryAggregate } = useWeb3();
 
   useEffect(() => {
@@ -40,6 +41,21 @@ const BuildStrategy: FC = () => {
         to: address,
       })),
     );
+  };
+
+  const handlePublic = () => {
+    console.log(steps, "select");
+    const formSteps = steps.map(({ args, func, address, id, title }) => ({
+      id,
+      address,
+      title,
+      func,
+      data: args,
+    }));
+    addPublicStrategy({
+      title: title || "",
+      steps: formSteps,
+    });
   };
 
   return (
@@ -72,15 +88,43 @@ const BuildStrategy: FC = () => {
           gap: 2,
         }}
       >
-        <Button variant={"contained"} onClick={handleStart}>
-          Start Complex Strategy
-        </Button>
-        <Button variant={"outlined"}>Public Complex Strategy</Button>
         <TextField
           label={"Strategy name"}
           value={title}
           onChange={(e) => setTitle(e.currentTarget.value)}
         />
+        <Button
+          variant={"contained"}
+          onClick={handleStart}
+          sx={{
+            backgroundColor: "black",
+            "&:active": {
+              backgroundColor: "black",
+            },
+            "&:hover": {
+              backgroundColor: "black",
+            },
+          }}
+        >
+          Start Complex Strategy
+        </Button>
+        <Button
+          variant={"outlined"}
+          sx={{
+            color: "black",
+            border: "1px solid black",
+            "&:active": {
+              border: "1px solid black",
+            },
+            "&:hover": {
+              border: "1px solid black",
+            },
+          }}
+          onClick={handlePublic}
+        >
+          Public Complex Strategy
+        </Button>
+
         <Typography>
           {steps.length} in new strategy {title}
         </Typography>
