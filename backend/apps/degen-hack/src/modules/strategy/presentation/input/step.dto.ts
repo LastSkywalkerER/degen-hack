@@ -15,7 +15,14 @@ export class StepDto {
   @IsNotEmpty()
   data: {
     id: number;
+    type: DataType;
     name: string;
     value: string;
   }[];
+}
+
+enum DataType {
+  userValue = 'userValue',
+  const = 'const',
+  userAddress = 'userAddress',
 }

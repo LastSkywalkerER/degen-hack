@@ -36,5 +36,5 @@ export class StrategyStepEntity {
 
   @ManyToOne(() => StrategyEntity, (strategy) => strategy.steps)
   @JoinColumn({ name: 'strategyId' })
-  strategy: StrategyEntity;
+  strategy: StrategyEntity | null;
 }

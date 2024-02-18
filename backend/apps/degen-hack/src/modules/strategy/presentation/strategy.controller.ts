@@ -47,7 +47,7 @@ export class StrategyController {
     return await this.strategyService.getPublicStrategies();
   }
 
-  // @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Get(apiConfig.strategy.getStepById)
   async getStepById(@Param('id') id: number) {
     return await this.strategyService.getStepById(id);

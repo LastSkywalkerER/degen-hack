@@ -5,10 +5,7 @@ import { BlockchainEthDomain } from '../../blockchain-eth/domain';
 import { UserDomain } from '../../user/domain';
 import { TokenDomain } from '../domain/token.domain';
 
-import {
-  CreateCoordinateAroundShipParameters,
-  GetTokensParameters,
-} from './token.service-type';
+import { GetTokensParameters } from './token.service-type';
 
 @Injectable()
 export class TokenService {

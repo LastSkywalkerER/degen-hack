@@ -25,7 +25,7 @@ export class StrategySteps1708170992103 implements MigrationInterface {
           { name: 'data', type: 'varchar' },
           { name: 'isPublic', type: 'boolean', isNullable: true },
           { name: 'serialNumber', type: 'decimal', isNullable: true },
-          { name: 'strategyId', type: 'int' },
+          { name: 'strategyId', type: 'int', isNullable: true },
         ],
       }),
       true,
