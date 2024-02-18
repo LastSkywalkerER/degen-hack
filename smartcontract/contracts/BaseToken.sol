@@ -32,10 +32,7 @@ contract BaseToken is
     bytes32 public constant DEPLOYER_ROLE = keccak256("DEPLOYER_ROLE");
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
 
-    // Balance controller wallet address
-    address private balanceController;
-
-    IAllowedList private allowedList;
+    IAllowedList public allowedList;
 
     // Contract URI
     string public contractURI;
@@ -59,10 +56,7 @@ contract BaseToken is
         address allowedList_
     ) external initializer {
         require(bytes(contractURI_).length > 0, "Empty contract URI");
-        require(
-            ERC165Checker.supportsInterface(allowedList_, type(IAllowedList).interfaceId),
-            "Incorrect Allowed List"
-        );
+        require(allowedList_ != address(0), "LOL");
 
         __Ownable_init();
         __Pausable_init();
@@ -70,7 +64,6 @@ contract BaseToken is
         __ERC20_init(name_, symbol_);
         __ERC20Burnable_init();
 
-        balanceController = 0x317330DAE134373c39100C5e77A7B27abF6dCB89;
         allowedList = IAllowedList(allowedList_);
         contractURI = contractURI_;
 
@@ -88,7 +81,7 @@ contract BaseToken is
     function mint(uint256 amount) external onlyRole(MINTER_ROLE) {
         require(amount != 0, "Zero token amount");
 
-        _mint(balanceController, amount);
+        _mint(msg.sender, amount);
     }
 
     function isInAllowedList(address _address) external view {

@@ -67,11 +67,11 @@ contract TokenFactory is ITokenFactory, Initializable, ERC165Upgradeable, Access
         string calldata name,
         string calldata symbol,
         string calldata contractURI
-    ) external onlyRole(DEPLOYER_ROLE) returns (address token, address allowedList) {
+    ) external onlyRole(DEPLOYER_ROLE) returns (address token) {
         require(bytes(contractURI).length > 0, "Empty contract URI");
 
+        address allowedList = Clones.clone(allowedListImplementation);
         token = Clones.clone(tokenImplementation);
-        allowedList = Clones.clone(allowedListImplementation);
 
         availableTokens[token] = true;
 

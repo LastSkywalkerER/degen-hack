@@ -30,7 +30,7 @@ interface ITokenFactory {
         string calldata name,
         string calldata symbol,
         string calldata contractURI
-    ) external returns (address token, address allowedList);
+    ) external returns (address token);
 
     /**
      * @notice Checks if token is available.
