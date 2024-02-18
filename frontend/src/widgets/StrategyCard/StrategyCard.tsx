@@ -7,11 +7,13 @@ import CardActions from "@mui/material/CardActions";
 import Button from "@mui/material/Button";
 import { IStrategyCard } from "@entities/index.ts";
 import { useStrategy } from "@shared/services/strategy/strategy.service";
+import { useWeb3 } from "@shared/services/web3/web3.service.ts";
 
 export const StrategyCard: FC<IStrategyCard> = ({ title, steps, isPublic }) => {
   const { addUserStrategy } = useStrategy();
+  const { tryAggregate } = useWeb3();
 
-  const handleStart = () => {
+  const handleStart = async () => {
     console.log(steps, "select");
     const formSteps = steps.map(({ data, func, address, id, title }) => ({
       id,
@@ -20,7 +22,16 @@ export const StrategyCard: FC<IStrategyCard> = ({ title, steps, isPublic }) => {
       func,
       data: JSON.parse(data),
     }));
-    addUserStrategy({
+    await tryAggregate(
+      steps.map(({ data, func, address }) => ({
+        args: JSON.parse(data),
+        func,
+        // value,
+        to: address,
+      })),
+    );
+
+    await addUserStrategy({
       title: title || "",
       steps: formSteps,
     });
@@ -61,6 +72,11 @@ export const StrategyCard: FC<IStrategyCard> = ({ title, steps, isPublic }) => {
               {func.includes("process") && (
                 <Typography variant="body2" sx={{ fontSize: "15px", fontWeight: "bold" }}>
                   Buy RWA
+                </Typography>
+              )}
+              {func.includes("transfer") && (
+                <Typography variant="body2" sx={{ fontSize: "15px", fontWeight: "bold" }}>
+                  Transfer USDC
                 </Typography>
               )}
             </Typography>

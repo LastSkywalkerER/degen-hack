@@ -1,7 +1,6 @@
 import { FC, useEffect } from "react";
 
 import Container from "@mui/material/Container";
-import Box from "@mui/material/Box";
 import { myStrategyHelmet } from "@shared/helmets/main.ts";
 import { withHelmet } from "@shared/hocs";
 import { StrategyCard } from "@widgets/StrategyCard/StrategyCard.tsx";
@@ -18,24 +17,14 @@ const MyStrategies: FC = () => {
     <Container
       sx={{
         display: "flex",
+        flexWrap: "wrap",
         gap: 5,
-        height: "100%",
-        flexDirection: "column",
         padding: 8,
       }}
     >
-      <Box
-        sx={{
-          gap: 5,
-          display: "flex",
-          flexWrap: "wrap",
-          height: "100%",
-        }}
-      >
-        {userStrategies.map((props) => (
-          <StrategyCard key={props.title} {...props} isPublic={false} />
-        ))}
-      </Box>
+      {userStrategies.map((props) => (
+        <StrategyCard key={props.title} {...props} isPublic={false} />
+      ))}
     </Container>
   );
 };

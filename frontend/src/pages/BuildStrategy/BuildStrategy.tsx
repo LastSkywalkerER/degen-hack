@@ -20,7 +20,7 @@ const BuildStrategy: FC = () => {
     getAllSteps();
   }, []);
 
-  const handleStart = () => {
+  const handleStart = async () => {
     console.log(steps, "select");
     const formSteps = steps.map(({ args, func, address, id, title }) => ({
       id,
@@ -29,11 +29,7 @@ const BuildStrategy: FC = () => {
       func,
       data: args,
     }));
-    addUserStrategy({
-      title: title || "",
-      steps: formSteps,
-    });
-    tryAggregate(
+    await tryAggregate(
       steps.map(({ args, func, address }) => ({
         args,
         func,
@@ -41,6 +37,10 @@ const BuildStrategy: FC = () => {
         to: address,
       })),
     );
+    await addUserStrategy({
+      title: title || "",
+      steps: formSteps,
+    });
   };
 
   const handlePublic = () => {
@@ -63,7 +63,6 @@ const BuildStrategy: FC = () => {
       sx={{
         display: "flex",
         gap: 5,
-        height: "100%",
         flexDirection: "column",
         padding: 8,
       }}

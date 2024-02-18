@@ -17,7 +17,6 @@ const Home: FC = () => {
       }}
     >
       <Typography variant={"h6"}>
-        {" "}
         With minds as bright as our spirits, we believe in turning wild ideas into reality
       </Typography>
     </Container>
